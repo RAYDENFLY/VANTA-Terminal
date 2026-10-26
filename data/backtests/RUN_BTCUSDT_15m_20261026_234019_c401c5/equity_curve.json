@@ -1,0 +1,29 @@
+[
+  {
+    "timestamp_ms": 1700000000000,
+    "bar_index": 0,
+    "equity": 10000.0,
+    "cash": 10000.0,
+    "unrealized_pnl": 0.0,
+    "drawdown_pct": 0.0,
+    "high_watermark": 10000.0
+  },
+  {
+    "timestamp_ms": 1700000900000,
+    "bar_index": 1,
+    "equity": 9999.98,
+    "cash": 10000.0,
+    "unrealized_pnl": -0.02,
+    "drawdown_pct": 0.0002,
+    "high_watermark": 10000.0
+  },
+  {
+    "timestamp_ms": 1700001800000,
+    "bar_index": 2,
+    "equity": 9994.82,
+    "cash": 9994.82,
+    "unrealized_pnl": 0.0,
+    "drawdown_pct": 0.0518,
+    "high_watermark": 10000.0
+  }
+]
