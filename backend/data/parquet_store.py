@@ -111,7 +111,11 @@ def create_manifest(
     parquet_path: Path,
     sha256: str,
     validation_status: str = "PASSED",
-    unresolved_limitations: Optional[str] = None
+    unresolved_limitations: Optional[str] = None,
+    ohlc_violations: int = 0,
+    anomaly_count: int = 0,
+    anomalies: Optional[List[Dict[str, Any]]] = None,
+    timeframe_type: str = "EXCHANGE_NATIVE"
 ) -> Path:
     """Generates an immutable JSON manifest companion file for the Parquet dataset."""
     manifest_dir = Path("D:/vanta-terminal/data/manifests")
@@ -127,6 +131,7 @@ def create_manifest(
         "endpoint_source": "https://fapi.asterdex.com/fapi/v1/klines",
         "symbol": symbol,
         "timeframe": timeframe,
+        "timeframe_type": timeframe_type,
         "date_ranges": {
             "requested_start_utc": datetime.fromtimestamp(req_start_ms / 1000, timezone.utc).isoformat(),
             "requested_end_utc": datetime.fromtimestamp(req_end_ms / 1000, timezone.utc).isoformat(),
@@ -140,6 +145,9 @@ def create_manifest(
         "row_count": row_count,
         "gap_count": missing_intervals,
         "duplicate_count": duplicate_count,
+        "ohlc_violations": ohlc_violations,
+        "ohlc_minor_anomalies": anomaly_count,
+        "ohlc_anomalies_detail": anomalies or [],
         "storage": {
             "file_path": str(parquet_path),
             "file_size_bytes": file_size_bytes,

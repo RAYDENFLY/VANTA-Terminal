@@ -38,8 +38,8 @@ CURRENT_INGESTION_STATE: Dict[str, Any] = {
     "is_demo_data": False
 }
 
-def check_disk_space_guard(target_path: Path, min_free_gb: float = 2.0) -> None:
-    """Verifies target drive has sufficient free headroom before ingestion."""
+def check_disk_space_guard(target_path: Path, min_free_gb: float = 10.0) -> None:
+    """Verifies target drive has sufficient free headroom before ingestion (strictly >= 10 GB)."""
     drive_root = target_path.anchor or "D:\\"
     total, used, free = shutil.disk_usage(drive_root)
     free_gb = free / (1024 ** 3)
@@ -66,8 +66,8 @@ def run_bounded_ingestion(
     if output_path is None:
         output_path = Path(f"D:/vanta-terminal/data/raw/{symbol}/{timeframe}.parquet")
 
-    # Step 1: Pre-flight disk space safety check
-    check_disk_space_guard(output_path, min_free_gb=2.0)
+    # Step 1: Pre-flight disk space safety check (operational safety reserve >= 10.0 GB)
+    check_disk_space_guard(output_path, min_free_gb=10.0)
 
     step_ms = TIMEFRAME_STEP_MS.get(timeframe, 900000)
     expected_candles = int((end_time_ms - start_time_ms) // step_ms) + 1
@@ -187,7 +187,11 @@ def run_bounded_ingestion(
             duplicate_count=report.duplicate_count,
             parquet_path=output_path,
             sha256=sha256,
-            validation_status="PASSED"
+            validation_status="PASSED",
+            ohlc_violations=report.ohlc_violations,
+            anomaly_count=report.anomaly_count,
+            anomalies=report.anomalies,
+            timeframe_type="EXCHANGE_NATIVE"
         )
 
         elapsed = round(time.time() - start_wall_time, 2)

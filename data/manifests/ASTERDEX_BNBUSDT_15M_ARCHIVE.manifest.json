@@ -1,0 +1,50 @@
+{
+  "manifest_version": "1.0.0",
+  "dataset_id": "ASTERDEX_BNBUSDT_15M_ARCHIVE",
+  "exchange": "AsterDEX Futures V3 (Pro API)",
+  "endpoint_source": "https://fapi.asterdex.com/fapi/v1/klines",
+  "symbol": "BNBUSDT",
+  "timeframe": "15m",
+  "timeframe_type": "EXCHANGE_NATIVE",
+  "date_ranges": {
+    "requested_start_utc": "2023-10-26T00:00:00+00:00",
+    "requested_end_utc": "2026-10-25T23:45:00+00:00",
+    "actual_start_utc": "2023-10-26T00:00:00+00:00",
+    "actual_end_utc": "2026-10-25T23:45:00+00:00",
+    "requested_start_ms": 1698278400000,
+    "requested_end_ms": 1792971900000,
+    "actual_first_ms": 1698278400000,
+    "actual_last_ms": 1792971900000
+  },
+  "row_count": 105216,
+  "gap_count": 0,
+  "duplicate_count": 0,
+  "ohlc_violations": 0,
+  "ohlc_minor_anomalies": 0,
+  "ohlc_anomalies_detail": [],
+  "storage": {
+    "file_path": "D:\\vanta-terminal\\data\\raw\\BNBUSDT\\15m.parquet",
+    "file_size_bytes": 5102480,
+    "file_size_kb": 4982.89,
+    "compression": "SNAPPY",
+    "format": "Apache Parquet",
+    "sha256": "a73f616baef10af4af7488dae1082e5630cea0932aa813e8dddc73ab7e1cb3b5"
+  },
+  "columns": [
+    "open_time",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "close_time",
+    "quote_volume",
+    "trades_count",
+    "taker_buy_base",
+    "taker_buy_quote"
+  ],
+  "validation_status": "PASSED",
+  "is_demo_data": false,
+  "retrieved_at_utc": "2026-10-26T22:51:32.079227+00:00",
+  "unresolved_limitations": null
+}

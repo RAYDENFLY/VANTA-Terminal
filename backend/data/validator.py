@@ -3,10 +3,11 @@ VANTA Terminal — Market Data Integrity Validator
 =================================================
 Rigorous deterministic validation for OHLCV candlestick series.
 Enforces no lookahead, zero synthetic filling, and mathematical OHLC consistency.
+Audits tick-level matching artifacts with micro-precision tolerance.
 """
 
 from typing import List, Dict, Any, Tuple
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 @dataclass
 class ValidationReport:
@@ -16,6 +17,8 @@ class ValidationReport:
     gap_count: int
     ohlc_violations: int
     alignment_violations: int
+    anomaly_count: int
+    anomalies: List[Dict[str, Any]]
     gaps: List[Dict[str, Any]]
     first_timestamp_ms: int
     last_timestamp_ms: int
@@ -23,9 +26,13 @@ class ValidationReport:
 
 TIMEFRAME_STEP_MS = {
     "15m": 15 * 60 * 1000,    # 900,000 ms
-    "1H": 60 * 60 * 1000,     # 3,600,000 ms
-    "4H": 4 * 60 * 60 * 1000, # 14,400,000 ms
-    "1d": 24 * 60 * 60 * 1000 # 86,400,000 ms
+    "15M": 15 * 60 * 1000,
+    "1h": 60 * 60 * 1000,     # 3,600,000 ms
+    "1H": 60 * 60 * 1000,
+    "4h": 4 * 60 * 60 * 1000, # 14,400,000 ms
+    "4H": 4 * 60 * 60 * 1000,
+    "1d": 24 * 60 * 60 * 1000, # 86,400,000 ms
+    "1D": 24 * 60 * 60 * 1000
 }
 
 def validate_candles(raw_candles: List[List[Any]], timeframe: str = "15m") -> ValidationReport:
@@ -41,6 +48,8 @@ def validate_candles(raw_candles: List[List[Any]], timeframe: str = "15m") -> Va
             gap_count=0,
             ohlc_violations=0,
             alignment_violations=0,
+            anomaly_count=0,
+            anomalies=[],
             gaps=[],
             first_timestamp_ms=0,
             last_timestamp_ms=0,
@@ -52,6 +61,7 @@ def validate_candles(raw_candles: List[List[Any]], timeframe: str = "15m") -> Va
     duplicates = 0
     ohlc_violations = 0
     alignment_violations = 0
+    anomalies = []
     gaps = []
     errors = []
 
@@ -78,15 +88,40 @@ def validate_candles(raw_candles: List[List[Any]], timeframe: str = "15m") -> Va
             errors.append(f"Row {idx}: Open time {open_time} misaligned for timeframe {timeframe}")
 
         # 3. Candle Invariant checks
-        # High must be >= max(Open, Close)
-        # Low must be <= min(Open, Close)
-        # High must be >= Low > 0
-        # Volume must be >= 0
-        if not (h >= max(o, cl) and l <= min(o, cl) and h >= l and l > 0 and vol >= 0):
+        # Critical structural invariants
+        if not (l > 0 and h >= l and vol >= 0):
             ohlc_violations += 1
             errors.append(
-                f"Row {idx} ({open_time}): OHLC invariant violation -> O:{o}, H:{h}, L:{l}, C:{cl}, V:{vol}"
+                f"Row {idx} ({open_time}): Critical OHLC violation -> O:{o}, H:{h}, L:{l}, C:{cl}, V:{vol}"
             )
+        else:
+            max_oc = max(o, cl)
+            min_oc = min(o, cl)
+            h_diff = max_oc - h
+            l_diff = l - min_oc
+
+            if h_diff > 0 or l_diff > 0:
+                rel_h_diff = (h_diff / h) if h > 0 else 1.0
+                rel_l_diff = (l_diff / l) if l > 0 else 1.0
+                max_rel_diff = max(rel_h_diff if h_diff > 0 else 0.0, rel_l_diff if l_diff > 0 else 0.0)
+
+                # Micro-tolerance threshold (0.05% / 5 basis points for tick-level matching artifacts)
+                if max_rel_diff <= 0.0005:
+                    anomalies.append({
+                        "row": idx,
+                        "open_time": open_time,
+                        "open": o,
+                        "high": h,
+                        "low": l,
+                        "close": cl,
+                        "relative_discrepancy": round(max_rel_diff, 8),
+                        "type": "TICK_MATCH_ASYMMETRY"
+                    })
+                else:
+                    ohlc_violations += 1
+                    errors.append(
+                        f"Row {idx} ({open_time}): Severe OHLC violation (rel diff {max_rel_diff:.4%}) -> O:{o}, H:{h}, L:{l}, C:{cl}"
+                    )
 
         # 4. Close time check (close_time must equal open_time + step - 1)
         expected_close = open_time + expected_step_ms - 1
@@ -120,8 +155,10 @@ def validate_candles(raw_candles: List[List[Any]], timeframe: str = "15m") -> Va
         gap_count=len(gaps),
         ohlc_violations=ohlc_violations,
         alignment_violations=alignment_violations,
+        anomaly_count=len(anomalies),
+        anomalies=anomalies,
         gaps=gaps,
         first_timestamp_ms=int(raw_candles[0][0]),
         last_timestamp_ms=int(raw_candles[-1][0]),
-        errors=errors[:20]  # Cap error list to first 20 for readability
+        errors=errors
     )

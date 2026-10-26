@@ -24,7 +24,9 @@
     "file_size_kb": 209.16,
     "compression": "SNAPPY",
     "format": "Apache Parquet",
-    "sha256": "d2d485aa1d91ab75eeb768450525a455651401a32c72f2321ecaec40f10517f0"
+    "sha256": "d2d485aa1d91ab75eeb768450525a455651401a32c72f2321ecaec40f10517f0",
+    "preserved_path": "D:\\vanta-terminal\\data\\pilot\\BTCUSDT\\15m_30d_pilot.parquet",
+    "preserved_raw_path": "D:\\vanta-terminal\\data\\raw\\BTCUSDT\\15m_30d_pilot.parquet"
   },
   "columns": [
     "open_time",

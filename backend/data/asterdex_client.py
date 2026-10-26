@@ -26,14 +26,17 @@ class AsterDexPublicClient:
     Uses Python standard library with zero external heavyweight dependencies.
     """
 
-    def __init__(self, base_url: str = PROD_FAPI_BASE_URL, timeout_sec: int = 10):
+    def __init__(self, base_url: str = PROD_FAPI_BASE_URL, timeout_sec: int = 15, max_retries: int = 3):
         self.base_url = base_url.rstrip("/")
         self.timeout_sec = timeout_sec
+        self.max_retries = max_retries
         self.ssl_context = ssl.create_default_context()
         self.headers = {
             "User-Agent": "VANTA-Terminal-Research/1.0 (Public Market Data Auditor)",
             "Accept": "application/json"
         }
+        self.last_request_time = 0.0
+        self.min_interval_sec = 0.08  # ~12 req/sec max to respect 2,400 weight/min safely
 
     def _get(self, endpoint: str, params: Optional[Dict[str, Any]] = None) -> Any:
         url = f"{self.base_url}{endpoint}"
@@ -43,17 +46,32 @@ class AsterDexPublicClient:
             url = f"{url}?{query_str}"
 
         req = urllib.request.Request(url, headers=self.headers, method="GET")
-        try:
-            with urllib.request.urlopen(req, timeout=self.timeout_sec, context=self.ssl_context) as resp:
-                if resp.status != 200:
-                    raise RuntimeError(f"AsterDEX HTTP Error {resp.status} on {endpoint}")
-                raw_body = resp.read().decode("utf-8")
-                return json.loads(raw_body)
-        except urllib.error.HTTPError as e:
-            err_body = e.read().decode("utf-8", errors="ignore")
-            raise RuntimeError(f"AsterDEX API Error [{e.code}] on {endpoint}: {err_body}")
-        except Exception as e:
-            raise RuntimeError(f"AsterDEX Connection Error on {endpoint}: {str(e)}")
+
+        for attempt in range(self.max_retries + 1):
+            # Throttle to respect min_interval_sec
+            elapsed_since_last = time.time() - self.last_request_time
+            if elapsed_since_last < self.min_interval_sec:
+                time.sleep(self.min_interval_sec - elapsed_since_last)
+
+            try:
+                self.last_request_time = time.time()
+                with urllib.request.urlopen(req, timeout=self.timeout_sec, context=self.ssl_context) as resp:
+                    if resp.status != 200:
+                        raise RuntimeError(f"AsterDEX HTTP Error {resp.status} on {endpoint}")
+                    raw_body = resp.read().decode("utf-8")
+                    return json.loads(raw_body)
+            except urllib.error.HTTPError as e:
+                err_body = e.read().decode("utf-8", errors="ignore")
+                if e.code in [429, 502, 503, 504] and attempt < self.max_retries:
+                    backoff = (2 ** attempt) + 1.0  # 2s, 3s, 5s backoff
+                    time.sleep(backoff)
+                    continue
+                raise RuntimeError(f"AsterDEX API Error [{e.code}] on {endpoint}: {err_body}")
+            except Exception as e:
+                if attempt < self.max_retries:
+                    time.sleep(1.0)
+                    continue
+                raise RuntimeError(f"AsterDEX Connection Error on {endpoint}: {str(e)}")
 
     def ping(self) -> bool:
         """Endpoint: GET /fapi/v1/ping"""

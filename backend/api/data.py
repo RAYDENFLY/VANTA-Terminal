@@ -3,6 +3,7 @@ from pathlib import Path
 from backend.schemas.data import DataCoverageResponse
 from backend.data.coverage_audit import get_coverage_response
 from backend.data.ingestion_engine import run_bounded_ingestion, CURRENT_INGESTION_STATE
+from backend.data.sequential_ingestor import load_job_registry, CANCEL_SIGNAL_FILE
 
 router = APIRouter(prefix="/data", tags=["Data Center"])
 
@@ -14,18 +15,32 @@ def get_data_coverage():
 def get_current_ingestion_state():
     return CURRENT_INGESTION_STATE
 
+@router.get("/ingestion/registry")
+def get_ingestion_registry():
+    """Returns the persistent 33-dataset sequential ingestion registry."""
+    try:
+        return load_job_registry()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/ingestion/cancel")
+def cancel_ingestion_job():
+    """Signals the running sequential ingestion job to gracefully halt."""
+    CANCEL_SIGNAL_FILE.parent.mkdir(parents=True, exist_ok=True)
+    CANCEL_SIGNAL_FILE.touch()
+    return {"status": "CANCEL_SIGNAL_ISSUED", "message": "Sequential ingestion will halt after the current dataset completes."}
+
 @router.post("/ingestion/pilot")
 def run_pilot_ingestion():
     """
-    Executes the Phase 3A authorized bounded pilot:
-    BTCUSDT 15m for 30 days.
+    Executes or verifies the Phase 3A authorized bounded pilot:
+    BTCUSDT 15m for 30 days. Uses preserved pilot location.
     """
     try:
-        # Bounded 30 days window: 2026-09-26 22:30 UTC to 2026-10-26 22:30 UTC
         start_ms = 1790461800000
         end_ms = 1793053800000
         dataset_id = "ASTERDEX_BTCUSDT_15M_30D_PILOT"
-        output_file = Path("D:/vanta-terminal/data/raw/BTCUSDT/15m.parquet")
+        output_file = Path("D:/vanta-terminal/data/pilot/BTCUSDT/15m_30d_pilot.parquet")
 
         result = run_bounded_ingestion(
             symbol="BTCUSDT",
