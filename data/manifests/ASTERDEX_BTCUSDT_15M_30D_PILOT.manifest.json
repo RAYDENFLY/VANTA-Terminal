@@ -1,0 +1,46 @@
+{
+  "manifest_version": "1.0.0",
+  "dataset_id": "ASTERDEX_BTCUSDT_15M_30D_PILOT",
+  "exchange": "AsterDEX Futures V3 (Pro API)",
+  "endpoint_source": "https://fapi.asterdex.com/fapi/v1/klines",
+  "symbol": "BTCUSDT",
+  "timeframe": "15m",
+  "date_ranges": {
+    "requested_start_utc": "2026-09-26T22:30:00+00:00",
+    "requested_end_utc": "2026-10-26T22:30:00+00:00",
+    "actual_start_utc": "2026-09-26T22:30:00+00:00",
+    "actual_end_utc": "2026-10-26T22:30:00+00:00",
+    "requested_start_ms": 1790461800000,
+    "requested_end_ms": 1793053800000,
+    "actual_first_ms": 1790461800000,
+    "actual_last_ms": 1793053800000
+  },
+  "row_count": 2881,
+  "gap_count": 0,
+  "duplicate_count": 0,
+  "storage": {
+    "file_path": "D:\\vanta-terminal\\data\\raw\\BTCUSDT\\15m.parquet",
+    "file_size_bytes": 214184,
+    "file_size_kb": 209.16,
+    "compression": "SNAPPY",
+    "format": "Apache Parquet",
+    "sha256": "d2d485aa1d91ab75eeb768450525a455651401a32c72f2321ecaec40f10517f0"
+  },
+  "columns": [
+    "open_time",
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "close_time",
+    "quote_volume",
+    "trades_count",
+    "taker_buy_base",
+    "taker_buy_quote"
+  ],
+  "validation_status": "PASSED",
+  "is_demo_data": false,
+  "retrieved_at_utc": "2026-10-26T22:32:28.131893+00:00",
+  "unresolved_limitations": null
+}

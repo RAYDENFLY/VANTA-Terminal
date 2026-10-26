@@ -9,7 +9,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 
   let bgClass = "bg-terminal-sub text-terminal-muted border-terminal-border";
 
-  if (norm === "COMPLETED" || norm === "NOMINAL" || norm === "FROZEN" || norm === "OK" || norm === "VERIFIED_3Y" || norm === "AUDITED_AVAILABLE") {
+  if (norm === "COMPLETED" || norm === "NOMINAL" || norm === "FROZEN" || norm === "OK" || norm === "VERIFIED_3Y" || norm === "AUDITED_AVAILABLE" || norm === "VALIDATED_PILOT") {
     bgClass = "bg-emerald-950/60 text-emerald-400 border-emerald-800/60";
   } else if (norm === "PENDING" || norm === "PENDING_AUDIT" || norm === "QUEUED" || norm === "RUNNING" || norm === "PARTIAL_HISTORY" || norm === "PARTIAL (<3Y)") {
     bgClass = "bg-amber-950/60 text-amber-400 border-amber-800/60";
