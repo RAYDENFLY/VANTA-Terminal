@@ -72,7 +72,23 @@ D:\vanta-terminal\ (and junction D:\VANTA Terminal\)
 `BTCUSDT.P`, `ETHUSDT.P`, `SOLUSDT.P`, `BNBUSDT.P`, `XRPUSDT.P`, `ADAUSDT.P`, `AVAXUSDT.P`, `LINKUSDT.P`, `DOGEUSDT.P`, `LTCUSDT.P`, `XMRUSDT.P`.  
 Timeframes: `15m`, `1H`, `4H`.
 
-### Exchange Adapter (AsterDEX)
+### Exchange Adapter (AsterDEX Futures V3 / Pro API)
+**Official Documentation Reference:**
+- Repository: [https://github.com/asterdex/api-docs](https://github.com/asterdex/api-docs)
+- Futures V3 General Info: [https://asterdex.github.io/aster-api-website/futures-v3/general-info/](https://asterdex.github.io/aster-api-website/futures-v3/general-info/)
+- Verification Date: `2026-10-27`
+- Production Base URL: `https://fapi.asterdex.com`
+- Testnet Base URL: `https://fapi.asterdex-testnet.com`
+
+**Pro API (V3) Architecture vs. Legacy V1:**
+- Legacy V1 API key creation has been deprecated by AsterDEX.
+- V3 introduces Authorized API Wallets / Agent Wallets using Web3 / EIP-712 typed data signatures.
+- **Strict Decoupled Capabilities:**
+  1. *Public Market Data & Instrument Discovery*: `GET /fapi/v1/exchangeInfo` (unauthenticated).
+  2. *Historical OHLCV Klines*: `GET /fapi/v1/klines` (unauthenticated, ascending chronological order).
+  3. *Funding & Mark Price*: `GET /fapi/v1/fundingRate`, `GET /fapi/v1/premiumIndex` (unauthenticated).
+  4. *Account Read-Only*: Reserved for future approved phases; strictly via Authorized Agent Wallet with zero withdrawal permission. Never request or store main-wallet private keys.
+  5. *Order Execution*: **PERMANENTLY DISABLED AND UNIMPLEMENTED**.
 - **Metadata Audit**: Prior to downloading historical data, the adapter queries AsterDEX public endpoints to verify exact exchange-native symbol naming, contract specifications, tick sizes, step sizes, and historical candle limits per request.
 - **Strict Gap Detection**: Validates sequence timestamps:
   $$\Delta t = t_i - t_{i-1}$$

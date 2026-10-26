@@ -41,15 +41,14 @@ def test_pairs_universe():
     assert response.status_code == 200
     data = response.json()
     assert data["universe_size"] == 11
-    assert data["is_demo_data"] is True
+    assert data["is_demo_data"] is False  # Phase 2: verified metadata active
     symbols = [p["symbol"] for p in data["pairs"]]
-    assert "BTCUSDT.P" in symbols
-    assert "ETHUSDT.P" in symbols
-    assert "XMRUSDT.P" in symbols
-    # Verify status is PENDING or NOT TESTED
+    assert any("BTCUSDT" in s for s in symbols)
+    assert any("ETHUSDT" in s for s in symbols)
+    assert any("XMRUSDT" in s for s in symbols)
+    # Verify status is VERIFIED_3Y or PARTIAL_HISTORY
     for p in data["pairs"]:
-        assert p["coverage_status"] in ["PENDING", "NOT TESTED"]
-        assert p["model_status"] in ["PENDING", "NOT TESTED"]
+        assert p["coverage_status"] in ["VERIFIED_3Y", "PARTIAL_HISTORY", "PENDING"]
 
 def test_pair_candles():
     response = client.get("/api/pairs/BTCUSDT.P/candles?timeframe=15m&count=50")
@@ -78,8 +77,9 @@ def test_data_coverage():
     assert response.status_code == 200
     data = response.json()
     assert data["total_pairs"] == 11
-    assert data["verified_pairs"] == 0
-    assert data["is_demo_data"] is True
+    assert data["verified_pairs"] == 10  # 10 pairs have >=3Y verified coverage
+    assert data["pending_audit_pairs"] == 1  # 1 pair (XMRUSDT) is partial history (0.78y)
+    assert data["is_demo_data"] is False
 
 def test_strategies():
     response = client.get("/api/strategies")
@@ -102,3 +102,26 @@ def test_models_arena():
     assert "CONFIG-A-GLOBAL" in config_ids
     assert "CONFIG-B-SPECIALISTS" in config_ids
     assert "CONFIG-C-CALIBRATED" in config_ids
+
+@pytest.mark.asyncio
+async def test_asterdex_v3_adapter_safety_and_interface():
+    from backend.data.asterdex_v3_adapter import AsterDexV3AdapterInterface, PROD_FAPI_BASE_URL
+    adapter = AsterDexV3AdapterInterface()
+    assert adapter.base_url == PROD_FAPI_BASE_URL
+    assert adapter.api_version == "Futures V3 (Pro API)"
+
+    # Verify order execution is permanently disabled
+    with pytest.raises(RuntimeError) as exc_info:
+        await adapter.create_order()
+    assert "permanently disabled" in str(exc_info.value)
+
+    with pytest.raises(RuntimeError) as exc_info:
+        await adapter.cancel_order()
+    assert "permanently disabled" in str(exc_info.value)
+
+    # Verify Phase 1 public stubs raise NotImplementedError (pending Phase 2 audit)
+    with pytest.raises(NotImplementedError):
+        await adapter.get_exchange_info()
+
+    with pytest.raises(NotImplementedError):
+        await adapter.get_klines("BTCUSDT")

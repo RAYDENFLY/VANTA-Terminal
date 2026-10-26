@@ -48,7 +48,7 @@ export default function TerminalOverview() {
   return (
     <div className="space-y-4">
       {/* Top Banner: Research Workstation Identity & Safety */}
-      <div className="bg-terminal-surface border border-terminal-border p-3 rounded flex items-center justify-between">
+      <div className="bg-terminal-surface border border-terminal-border p-3 rounded flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
             <span className="font-bold text-terminal-amber text-sm font-mono">
@@ -57,9 +57,12 @@ export default function TerminalOverview() {
             <span className="text-[10px] bg-terminal-sub px-2 py-0.5 rounded text-terminal-muted border border-terminal-border">
               SYNTHETIC DEMO FIXTURES ONLY
             </span>
+            <span className="text-[10px] bg-amber-950/40 text-amber-400 px-2 py-0.5 rounded border border-amber-800/60 font-mono">
+              ADAPTER TARGET: ASTERDEX FUTURES V3 (PRO API)
+            </span>
           </div>
           <p className="text-xs text-terminal-muted mt-1">
-            Bloomberg-inspired quantitative terminal for crypto-futures strategy modeling and model arena evaluation.
+            Bloomberg-inspired quantitative terminal for crypto-futures strategy modeling. Adapter target: AsterDEX Futures V3 Pro API (Public data only).
           </p>
         </div>
 

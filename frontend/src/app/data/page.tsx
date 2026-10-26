@@ -39,20 +39,22 @@ export default function DataCenterPage() {
         <div>
           <div className="flex items-center gap-2">
             <span className="font-bold text-terminal-amber text-sm font-mono">
-              DATA CENTER // STORAGE & EXCHANGE AUDIT
+              DATA CENTER // ASTERDEX FUTURES V3 PRO API AUDIT
             </span>
             <span className="text-[10px] bg-terminal-sub px-2 py-0.5 rounded text-terminal-muted border border-terminal-border">
-              AWAITING PHASE 2 AUDIT
+              PUBLIC DATA ONLY
             </span>
           </div>
           <p className="text-xs text-terminal-muted mt-0.5">
-            Verified storage on HDD D:\. Historical depth will be verified via public AsterDEX endpoints before downloading.
+            Adapter Target: https://fapi.asterdex.com. Instrument discovery, candle limits, and coverage auditing protocol.
           </p>
         </div>
 
-        <div className="px-3 py-1 rounded bg-amber-950/40 border border-amber-800/60 text-amber-400 font-mono text-xs flex items-center gap-1.5">
-          <AlertTriangle className="w-3.5 h-3.5" />
-          <span>ZERO MARKET CANDLES DOWNLOADED YET</span>
+        <div className="flex items-center gap-2">
+          <div className="px-3 py-1 rounded bg-amber-950/40 border border-amber-800/60 text-amber-400 font-mono text-xs flex items-center gap-1.5">
+            <AlertTriangle className="w-3.5 h-3.5" />
+            <span>ZERO MARKET CANDLES DOWNLOADED YET</span>
+          </div>
         </div>
       </div>
 

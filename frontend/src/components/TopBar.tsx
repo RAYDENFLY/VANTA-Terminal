@@ -36,7 +36,7 @@ export function TopBar() {
   return (
     <header className="h-10 bg-terminal-surface border-b border-terminal-border px-4 flex items-center justify-between text-xs select-none sticky top-0 z-50">
       {/* Left: Branding & Strict Safety Watermark */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
         <div className="flex items-center gap-1.5 font-bold tracking-wider text-terminal-amber font-mono">
           <div className="w-2.5 h-2.5 bg-terminal-amber rounded-sm animate-pulse" />
           <span>VANTA // TERMINAL</span>
@@ -44,14 +44,21 @@ export function TopBar() {
 
         <div className="h-3.5 w-[1px] bg-terminal-border" />
 
+        {/* AsterDEX V3 Pro API Indicator */}
+        <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-terminal-sub border border-terminal-border font-mono text-[10px] text-terminal-muted">
+          <span className="text-terminal-amber font-semibold">ASTERDEX FUTURES V3</span>
+          <span className="text-terminal-dim">·</span>
+          <span>PUBLIC DATA ONLY</span>
+        </div>
+
         {/* Persistent Safety Notice */}
-        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-terminal-card border border-terminal-borderLight font-mono font-medium text-amber-400">
+        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-terminal-card border border-terminal-borderLight font-mono font-medium text-amber-400 text-[11px]">
           <ShieldAlert className="w-3.5 h-3.5 text-amber-500" />
           <span>LOCAL RESEARCH · NO LIVE ORDERS</span>
         </div>
 
         {/* Demo Data Watermark */}
-        <div className="px-2 py-0.5 rounded bg-terminal-sub border border-terminal-border text-[10px] font-mono text-terminal-muted">
+        <div className="px-2 py-0.5 rounded bg-terminal-sub border border-terminal-border text-[10px] font-mono text-terminal-muted hidden xl:block">
           DEMO FIXTURES ACTIVE
         </div>
       </div>

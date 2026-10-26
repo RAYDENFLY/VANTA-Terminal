@@ -2,6 +2,8 @@ export interface HealthData {
   status: string;
   version: string;
   environment: string;
+  data_source: string;
+  data_mode: string;
   live_orders_enabled: boolean;
   is_demo_data: boolean;
   active_worker: boolean;
@@ -44,6 +46,8 @@ export interface ResourceTelemetry {
 export interface SystemStatusData {
   project_name: string;
   version: string;
+  data_source: string;
+  data_mode: string;
   host: string;
   port: number;
   loopback_only: boolean;

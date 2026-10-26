@@ -10,6 +10,8 @@
 
 Phase 1 has successfully established the core project skeleton, local-only Bloomberg-inspired workstation frontend, modular FastAPI research API, operational PowerShell management scripts with PID tracking, and 100% passing test suites.
 
+In response to the AsterDEX API architecture addendum, the platform has been explicitly upgraded to target the **AsterDEX Futures V3 / Pro API** (`https://fapi.asterdex.com`) rather than deprecated legacy V1 keys. A decoupled adapter interface (`backend/data/asterdex_v3_adapter.py`) and a comprehensive integration specification (`docs/ASTERDEX_V3_INTEGRATION_SPEC.md`) have been added. All 8 terminal pages visibly display the required data source indicators (`ASTERDEX FUTURES V3 · PUBLIC DATA ONLY · NO LIVE ORDERS`).
+
 All 8 requested terminal pages are fully constructed and verified with Next.js 14 static generation and responsive dark terminal ergonomics. The backend serves typed Pydantic v2 schemas and live Windows hardware telemetry. Port 8000 was confirmed occupied by external PID 5328 and remained 100% untouched throughout all tests.
 
 ---

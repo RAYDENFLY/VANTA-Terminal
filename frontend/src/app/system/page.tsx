@@ -99,11 +99,11 @@ export default function SystemMonitorPage() {
           </div>
 
           <div className="p-3 rounded bg-terminal-card border border-terminal-border">
-            <div className="text-[10px] text-terminal-dim uppercase">Live Order Routing</div>
-            <div className="text-lg font-bold text-rose-400 mt-0.5">
-              DISABLED
+            <div className="text-[10px] text-terminal-dim uppercase">Exchange Adapter</div>
+            <div className="text-sm font-bold text-terminal-amber mt-0.5">
+              ASTERDEX V3 (PRO API)
             </div>
-            <div className="text-[10px] text-terminal-dim mt-0.5">No API keys allowed</div>
+            <div className="text-[10px] text-terminal-muted mt-0.5">Public Market Data Only</div>
           </div>
         </div>
       </div>

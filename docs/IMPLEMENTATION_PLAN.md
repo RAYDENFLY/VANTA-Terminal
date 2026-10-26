@@ -94,12 +94,17 @@ flowchart LR
 
 ---
 
-## PHASE 2 — AsterDEX Data Audit & Coverage Verification
-**Objective:** Build the AsterDEX exchange adapter and audit symbol metadata, historical coverage, and endpoint limits **before** downloading any datasets.
+## PHASE 2 — AsterDEX Futures V3 Data Audit & Coverage Verification
+**Objective:** Build the AsterDEX Futures V3 (Pro API) exchange adapter and audit symbol metadata, historical coverage, and endpoint limits **before** downloading any datasets.
+
+### Official V3 Specifications:
+- Documentation: `https://asterdex.github.io/aster-api-website/futures-v3/general-info/`
+- API Repo: `https://github.com/asterdex/api-docs`
+- Production Base URL: `https://fapi.asterdex.com` (Verified 2026-10-27)
 
 ### Tasks:
-1. **Exchange Adapter (`backend/data/asterdex_adapter.py`):**
-   - Public endpoint integration (no API keys required).
+1. **Exchange Adapter (`backend/data/asterdex_v3_adapter.py`):**
+   - Public endpoint integration (unauthenticated; no keys required).
    - Symbol verification against native exchange instruments:
      - `BTCUSDT.P`, `ETHUSDT.P`, `SOLUSDT.P`, `BNBUSDT.P`, `XRPUSDT.P`,
      - `ADAUSDT.P`, `AVAXUSDT.P`, `LINKUSDT.P`, `DOGEUSDT.P`, `LTCUSDT.P`, `XMRUSDT.P`.

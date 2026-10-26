@@ -1,0 +1,382 @@
+{
+  "audit_timestamp_utc": "2026-10-26T22:26:04.870916+00:00",
+  "exchange": "AsterDEX Futures V3 (Pro API)",
+  "base_url": "https://fapi.asterdex.com",
+  "endpoint_klines": "/fapi/v1/klines",
+  "results": [
+    {
+      "requested_symbol": "BTCUSDT.P",
+      "exchange_symbol": "BTCUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-09-01 06:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1630454400000,
+      "earliest_date": "2021-09-01 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1881.0,
+      "total_years": 5.15,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "ETHUSDT.P",
+      "exchange_symbol": "ETHUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-09-07 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1630972800000,
+      "earliest_date": "2021-09-07 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1875.0,
+      "total_years": 5.13,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "SOLUSDT.P",
+      "exchange_symbol": "SOLUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-09-09 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1631145600000,
+      "earliest_date": "2021-09-09 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1873.0,
+      "total_years": 5.13,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "BNBUSDT.P",
+      "exchange_symbol": "BNBUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2022-01-04 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1641254400000,
+      "earliest_date": "2022-01-04 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1756.0,
+      "total_years": 4.81,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "XRPUSDT.P",
+      "exchange_symbol": "XRPUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-09-09 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1631145600000,
+      "earliest_date": "2021-09-09 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1873.0,
+      "total_years": 5.13,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "ADAUSDT.P",
+      "exchange_symbol": "ADAUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-09-09 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1631145600000,
+      "earliest_date": "2021-09-09 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1873.0,
+      "total_years": 5.13,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "AVAXUSDT.P",
+      "exchange_symbol": "AVAXUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-11-16 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1637020800000,
+      "earliest_date": "2021-11-16 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1805.0,
+      "total_years": 4.94,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "LINKUSDT.P",
+      "exchange_symbol": "LINKUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2022-04-14 02:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1649894400000,
+      "earliest_date": "2022-04-14 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1656.0,
+      "total_years": 4.53,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "DOGEUSDT.P",
+      "exchange_symbol": "DOGEUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-09-09 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1631145600000,
+      "earliest_date": "2021-09-09 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1873.0,
+      "total_years": 5.13,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "LTCUSDT.P",
+      "exchange_symbol": "LTCUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2021-11-16 03:30",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1637020800000,
+      "earliest_date": "2021-11-16 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 1805.0,
+      "total_years": 4.94,
+      "has_3_years": true,
+      "coverage_category": "VERIFIED (>=3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    },
+    {
+      "requested_symbol": "XMRUSDT.P",
+      "exchange_symbol": "XMRUSDT",
+      "status": "TRADING",
+      "timeframes": {
+        "15m": {
+          "available": true,
+          "earliest": "2026-01-13 16:45",
+          "latest": "2026-10-26 22:15",
+          "step_valid": true
+        },
+        "1H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        },
+        "4H": {
+          "available": false,
+          "error": "HTTP Error 400: Bad Request"
+        }
+      },
+      "earliest_ms": 1768262400000,
+      "earliest_date": "2026-01-13 00:00 UTC",
+      "latest_ms": 1792972800000,
+      "latest_date": "2026-10-26 00:00 UTC",
+      "total_days": 286.0,
+      "total_years": 0.78,
+      "has_3_years": false,
+      "coverage_category": "PARTIAL (<3Y)",
+      "pagination_verified": false,
+      "funding_rate_supported": true,
+      "pagination_forward_verified": true,
+      "pagination_backward_verified": true,
+      "pagination_step_ms": 900000
+    }
+  ]
+}

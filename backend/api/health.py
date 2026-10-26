@@ -15,6 +15,8 @@ def get_health():
         status="ok",
         version=settings.VERSION,
         environment=settings.ENVIRONMENT,
+        data_source="ASTERDEX FUTURES V3",
+        data_mode="PUBLIC DATA ONLY",
         live_orders_enabled=settings.VANTA_LIVE_ORDERS_ENABLED,
         is_demo_data=settings.DATA_DEMO_FIXTURES_ONLY,
         active_worker=False,
@@ -28,6 +30,8 @@ def get_system_status():
     return SystemStatusResponse(
         project_name=settings.PROJECT_NAME,
         version=settings.VERSION,
+        data_source="ASTERDEX FUTURES V3",
+        data_mode="PUBLIC DATA ONLY",
         host=settings.VANTA_HOST,
         port=settings.VANTA_BACKEND_PORT,
         loopback_only=True,

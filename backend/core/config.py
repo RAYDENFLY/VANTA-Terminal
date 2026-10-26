@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     VANTA_SIMULATION_MODE: bool = True
     DATA_DEMO_FIXTURES_ONLY: bool = True
     
+    # Exchange Adapter Metadata (AsterDEX Futures V3 Pro API)
+    ASTERDEX_API_BASE_URL: str = "https://fapi.asterdex.com"
+    ASTERDEX_API_VERSION: str = "FUTURES_V3_PRO"
+    DATA_SOURCE_MODE: str = "PUBLIC_DATA_ONLY"
+    
     # Concurrency Limits
     VANTA_MAX_WORKERS: int = 1
     VANTA_NUM_THREADS: int = 2
