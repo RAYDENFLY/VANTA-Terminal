@@ -31,10 +31,15 @@ class StrategyLabResponse(BaseModel):
     cost_framework: CostAssumptions
     candidates: List[StrategyCandidate]
     qualification_criteria: Dict[str, Any] = {
-        "min_trades": 100,
-        "min_sharpe": 1.0,
-        "max_drawdown_pct": 25.0,
-        "min_profit_factor": 1.25
+        "max_drawdown_pct": 15.0,
+        "min_net_expectancy_bps": 8.0,
+        "min_profit_factor": 1.25,
+        "min_total_trades": 150,
+        "min_pair_trades": 20,
+        "min_wf_consistency_folds": "2 of 3",
+        "min_cross_pair_positive": "7 of 11",
+        "friction_stress_tolerance": "Profitable at 1.5x friction (7.5 bps fee, 3.0 bps slip)",
+        "fallback_protocol": "NO_QUALIFIED_STRATEGY"
     }
     is_demo_data: bool = True
-    notice: str = "SIMULATION VALIDATION FIXTURES · SELECTION PENDING PHASE 4"
+    notice: str = "PHASE 4A PROTOCOL SPECIFIED · BENCHMARK EXECUTION PENDING PHASE 4B"
