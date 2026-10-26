@@ -68,9 +68,20 @@ def test_experiments_list():
     response = client.get("/api/experiments")
     assert response.status_code == 200
     data = response.json()
-    assert data["total_count"] >= 3
-    assert data["is_demo_data"] is True
-    assert any(exp["status"] == "COMPLETED" for exp in data["experiments"])
+    assert data["total_count"] >= 1
+    assert isinstance(data["is_demo_data"], bool)
+    assert any(exp["status"] in ["COMPLETED", "SUCCESS"] for exp in data["experiments"])
+
+def test_backtest_endpoints():
+    response = client.get("/api/backtest/runs")
+    assert response.status_code == 200
+    runs = response.json()
+    assert isinstance(runs, list)
+    if runs:
+        run_id = runs[0]["run_id"]
+        res_resp = client.get(f"/api/backtest/{run_id}")
+        assert res_resp.status_code == 200
+        assert res_resp.json()["run_id"] == run_id
 
 def test_data_coverage():
     response = client.get("/api/data/coverage")

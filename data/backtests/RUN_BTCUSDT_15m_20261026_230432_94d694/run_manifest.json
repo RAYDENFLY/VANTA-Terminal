@@ -1,0 +1,14 @@
+{
+  "run_id": "RUN_BTCUSDT_15m_20261026_230432_94d694",
+  "config_hash": "f68352177ad64c15937a59907483fb7347b3979880500a8d8dc0919ed5dd2d76",
+  "dataset_id": "ASTERDEX_BTCUSDT_15M_ARCHIVE",
+  "dataset_sha256": "d6abdb356fdfca8e1c0be54f7508655773ae0376e08a2df94294c6fe9bc14c06",
+  "status": "SUCCESS",
+  "total_trades": 1,
+  "final_equity": 10001.12,
+  "net_return_pct": 0.0112,
+  "max_drawdown_pct": 0.0049,
+  "result_file_sha256": "8aec471da0c64bf90ae2cefd1d7d27015f7e3d8f12b4dfd2acd76f15f4c2ae8e",
+  "created_at_utc": "2026-10-26T23:04:42.914555+00:00",
+  "is_synthetic_test": true
+}
