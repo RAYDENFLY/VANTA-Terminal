@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0B0D13;
+  --foreground: #E2E8F0;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-feature-settings: "tnum" 1, "zero" 1;
+  overflow-x: hidden;
+}
+
+/* Bloomberg terminal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0D13;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #232836;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #363D52;
+}
+
+/* Bloomberg Table Utilities */
+.table-dense th {
+  padding: 6px 10px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #8E9BAE;
+  border-bottom: 1px solid #232836;
+  background-color: #12151E;
+}
+
+.table-dense td {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-bottom: 1px solid #1A1F2C;
+}
+
+.table-dense tr:hover td {
+  background-color: #171B26;
+}
