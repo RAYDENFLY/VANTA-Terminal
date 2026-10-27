@@ -1,0 +1,155 @@
+{
+  "manifest_version": "1.0.0",
+  "phase": "Phase 4B.3 Portfolio Accounting Specification & Validation",
+  "timestamp_utc": "2026-10-27T13:30:00Z",
+  "exit_status": "SPEC_AND_VALIDATION_PASS",
+  "certified_outcome": "NO_QUALIFIED_STRATEGY (UNALTERED)",
+  "certified_baseline": "Strategy B (Donchian Breakout, 1H) UNQUALIFIED_BASELINE",
+  "quarantine_guard_status": "ENFORCED (open_time < 1777161600000 / 2026-04-26T00:00:00Z)",
+  "disk_free_gb": 51.13,
+  "input_manifest_checksums": {
+    "phase_4b_master": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\PHASE_4B_MASTER_SUMMARY.json",
+      "sha256": "10bbdd09a4e52e60360c4d0917d59aac67471477dbcd5ed2249fa9cec0c4ebeb"
+    },
+    "phase_4b1_audit": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b_audit\\audit_summary.json",
+      "sha256": "a2d4ac5941b0dd53b04f3cbe89421903ecdfedfc32d093770dbfcf3dd468d46d"
+    },
+    "phase_4b2_audit": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b2_audit\\risk_audit_summary.json",
+      "sha256": "6f36ef39898610eb92fe0bd8397fe54e6b0568db0e1478c469206e18f91f6dec"
+    },
+    "portfolio_spec_doc": {
+      "path": "D:\\vanta-terminal\\docs\\PHASE_4B3_PORTFOLIO_ACCOUNTING_SPEC.md",
+      "sha256": "ec5d7e74c9d9165ab2e8d20b3016b89aa79bf1da7b9f3f98e7aa5c328c9ee4d5"
+    },
+    "test_suite_file": {
+      "path": "D:\\vanta-terminal\\tests\\test_portfolio_accounting_spec.py",
+      "sha256": "ba82bc73ba94b5375de900205042d42e751f02c151d4a36a397c1362c2d83321"
+    }
+  },
+  "test_suite_execution": {
+    "total_tests": 12,
+    "passed_tests": 12,
+    "failed_tests": 0,
+    "duration_seconds": 1.141,
+    "test_cases": [
+      {
+        "id": "TEST-01",
+        "name": "Shared Capital Across Multiple Pairs",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-02",
+        "name": "Two or More Simultaneous Open Positions",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-03",
+        "name": "Insufficient Free Collateral & Capital Rationing",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-04",
+        "name": "Open-Position Unrealized Losses & MTM Drawdown",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-05",
+        "name": "Simultaneous Exits Free Collateral for Same-Bar Entries",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-06",
+        "name": "Gap-Through-Stop Loss Fill & Adverse Slippage",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-07",
+        "name": "Same-Candle SL/TP Ambiguity (CONSERVATIVE_SL_FIRST)",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-08",
+        "name": "Fee, Slippage, and Cash Reconciliation to the Penny",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-09",
+        "name": "Bankruptcy-Floor Clamping at Zero (100% Max Drawdown)",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-10",
+        "name": "Deterministic Replay & Identical Equity Checksum",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-11",
+        "name": "Fold Reset Isolation & Boundary Position Flattening",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-12",
+        "name": "Funding Data Missing Prerequisite Exception Guard",
+        "status": "PASSED"
+      }
+    ]
+  },
+  "mdd_taxonomy_reconciliation": {
+    "pair_concatenated_trade_close": {
+      "description": "Closed trades concatenated by symbol. Cashflow added on close. Intrabar excursions ignored.",
+      "strat_b_value_pct": 14.891,
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS"
+    },
+    "chronological_trade_close": {
+      "description": "Closed trades sorted strictly by calendar exit_time_ms. Intrabar excursions ignored.",
+      "strat_b_value_pct": 17.1524,
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS"
+    },
+    "candle_level_mark_to_market": {
+      "description": "Equity marked at every discrete candle close: Cash + sum(Unrealized PnL).",
+      "strat_b_fold3_value_pct": 20.721,
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS"
+    },
+    "bankruptcy_clamped": {
+      "description": "Physical bankruptcy floor at $0.00 cash. Max drawdown capped at 100.0%.",
+      "strat_a_unclamped_pct": 272.6491,
+      "strat_a_clamped_pct": 100.0,
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS"
+    },
+    "fold_specific_vs_combined": {
+      "description": "Fold-specific MDD evaluates risk within each $10k reset period. Combined compounds across folds.",
+      "strat_b_fold_specific_pct": {
+        "fold_1": 12.4348,
+        "fold_2": 12.6263,
+        "fold_3": 18.742
+      },
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS"
+    }
+  },
+  "discrepancies_resolved": [
+    {
+      "issue_id": "DISC-4B2-01",
+      "resolution": "Specified synchronized multi-pair event queue merging fills strictly by exit_time_ms."
+    },
+    {
+      "issue_id": "DISC-4B2-02",
+      "resolution": "Replaced 10 independent sub-accounts with Single-Pool Shared Capital Model ($10,000 central equity)."
+    },
+    {
+      "issue_id": "DISC-4B2-03",
+      "resolution": "Specified dual reporting: un-clamped strategy drag and clamped bankruptcy-floor MDD (100.0% max)."
+    },
+    {
+      "issue_id": "DISC-4B2-04",
+      "resolution": "Mandated fold-specific MTM MDD in every fold (<= 15.0%) alongside combined MTM MDD."
+    }
+  ],
+  "planned_source_code_additions": [
+    "backend/backtest/portfolio_engine.py (Multi-Pair Shared Margin Engine)",
+    "backend/backtest/event_queue.py (Deterministic Multi-Stream Bar Dispatcher)",
+    "backend/strategy/walk_forward_v2.py (Shared-Margin Walk-Forward Runner)"
+  ]
+}
