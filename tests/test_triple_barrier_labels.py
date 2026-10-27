@@ -116,8 +116,11 @@ def test_triple_barrier_sl_first():
     assert labels.iloc[19] == TargetLabel.SHORT_BREAKOUT
 
 
-def test_triple_barrier_same_candle_collision_conservative_sl_first():
-    """Verify CONSERVATIVE_SL_FIRST: Same-candle reach of both TP and SL triggers Stop Loss."""
+def test_triple_barrier_long_same_candle_collision_conservative_sl_first():
+    """
+    Phase 5B.2 Gate: In same-candle reach of both TP and SL, CONSERVATIVE_SL_FIRST
+    causes the LONG stop-loss to trigger first -> Class -1 (BEARISH_DOWN / Long Stopout).
+    """
     warmup = [[100.0, 101.0, 99.0, 100.0]] * 20
     forward = [
         [100.0, 110.0, 90.0, 100.0]    # Volatility spike touches both TP and SL
@@ -125,10 +128,28 @@ def test_triple_barrier_same_candle_collision_conservative_sl_first():
 
     df = make_dummy_candles(warmup + forward)
     labeler = TripleBarrierLabeler(horizon_bars=12)
-    labels = labeler.compute_labels(df)
+    labels = labeler.compute_labels(df, side="LONG")
 
-    # Both Long and Short experience same-candle collision and are stopped out.
-    assert labels.iloc[19] == TargetLabel.NEUTRAL_EXPIRY
+    # Under CONSERVATIVE_SL_FIRST, Long SL triggers first -> -1
+    assert labels.iloc[19] == TargetLabel.BEARISH_DOWN
+
+
+def test_triple_barrier_short_same_candle_collision_conservative_sl_first():
+    """
+    Phase 5B.2 Gate: In same-candle reach of both TP and SL, CONSERVATIVE_SL_FIRST
+    causes the SHORT stop-loss to trigger first -> Class +1 (BULLISH_UP / Short Stopout).
+    """
+    warmup = [[100.0, 101.0, 99.0, 100.0]] * 20
+    forward = [
+        [100.0, 110.0, 90.0, 100.0]    # Volatility spike touches both TP and SL
+    ] + [[100.0, 100.5, 99.5, 100.0]] * 15
+
+    df = make_dummy_candles(warmup + forward)
+    labeler = TripleBarrierLabeler(horizon_bars=12)
+    labels = labeler.compute_labels(df, side="SHORT")
+
+    # Under CONSERVATIVE_SL_FIRST, Short SL triggers first -> +1
+    assert labels.iloc[19] == TargetLabel.BULLISH_UP
 
 
 def test_triple_barrier_time_expiry_neither_barrier_touched():
