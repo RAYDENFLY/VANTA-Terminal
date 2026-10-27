@@ -1,0 +1,8 @@
+{
+  "docs/PHASE_5D3_1_RESULTS_POLICY_STATISTICAL_AUDIT.md": "4cdc2e44cef63826276a1f85e607be84b1de4fe748c5e084ebb2d434206600e7",
+  "data/experiments/phase_5d3/phase_5d3_evaluation_summary.json": "f2455d445cd6414a22b258f24c24e2941c7d04d73b822b001a54d9f001723cdb",
+  "data/experiments/phase_5d3/bootstrap_inference_results.json": "a863b230af437667c111dc3cd04b4c07896e93dffb75f54ac703b0221aa29db3",
+  "data/experiments/phase_5d3/meta_classification_metrics.json": "cc69e19451edddd79a7fb3de3430f59e4b848f5c9a197fb3b8a36fed0514d002",
+  "data/experiments/phase_5d3/benchmark_0_oos_trades.json": "1126d4a8e740b5825104f1fe1a0400d0026e0bab50d4fa2fab1ae8cac8ff8219",
+  "data/experiments/phase_5d3/manifest_sha256.json": "08ea0d2164c9269f09251d5384fedaf9864c67b6ca16ce1fb677480b55a74a73"
+}
