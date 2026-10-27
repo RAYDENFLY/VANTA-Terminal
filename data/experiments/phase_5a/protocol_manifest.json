@@ -1,16 +1,20 @@
 {
   "protocol_id": "VANTA-PROTO-5A-ML-RESEARCH",
-  "version": "1.1.0-AUDITED",
+  "version": "1.2.0-FINAL-CHECKED",
   "created_at_utc": "2026-10-27T14:45:00Z",
-  "audited_at_utc": "2026-10-27T14:54:00Z",
+  "audited_at_utc": "2026-10-27T15:00:00Z",
   "author": "Antigravity Quant Agent",
-  "status": "PROTOCOL_APPROVAL_READY",
-  "audit_reference": "docs/PHASE_5A1_PROTOCOL_CONSISTENCY_AUDIT.md",
+  "status": "PHASE_5B_READY",
+  "audit_references": [
+    "docs/PHASE_5A1_PROTOCOL_CONSISTENCY_AUDIT.md",
+    "docs/PHASE_5A2_FINAL_PROTOCOL_INTEGRITY_CHECK.md"
+  ],
   "document_checksums": {
     "PHASE_5A_ML_RESEARCH_PROTOCOL.md": "170b5bfd4b3b2d0c6869f9baf87d643cc8c67fc79a911699b68221152d516e35",
-    "PHASE_5A_FEATURE_CATALOG.md": "6f50a9b756173c672c37cfaafb6695656bb5f38858df350c2bdb35e4c4c552f9",
+    "PHASE_5A_FEATURE_CATALOG.md": "29e1b177d71391cf2d2255efd4ad646f937195058f118b7925f9438683972154",
     "PHASE_5A_EVALUATION_AND_STATISTICS_SPEC.md": "b8436a0c9ea964c50895407be12ff0d24976a8dc86efb297298f74ff252d3c12",
-    "PHASE_5A1_PROTOCOL_CONSISTENCY_AUDIT.md": "32db08f6965ddf6f32d6e98314db680c646e0d6b57c2768a9fba2d5f6b1e09c9"
+    "PHASE_5A1_PROTOCOL_CONSISTENCY_AUDIT.md": "32db08f6965ddf6f32d6e98314db680c646e0d6b57c2768a9fba2d5f6b1e09c9",
+    "PHASE_5A2_FINAL_PROTOCOL_INTEGRITY_CHECK.md": "f4357ee62e6d9b292d88400614b90d4e5bbb5f2f46e57809459fd224439e4564"
   },
   "certified_baseline_reference": {
     "strategy_id": "STRAT-B-01",
@@ -79,7 +83,8 @@
   },
   "feature_catalog": {
     "total_features": 21,
-    "max_warmup_bars": 100,
+    "nominal_warmup_bars": 100,
+    "allocated_warmup_buffer_bars": 150,
     "scaling_method": "RobustScaler (Fitted strictly on In-Sample slice)",
     "feature_families": {
       "FAM-1_MOMENTUM": ["RET_1", "RET_4", "RET_12", "RET_24"],
@@ -231,26 +236,6 @@
       "gate_id": "GATE-8",
       "gate_name": "Friction Stress Tolerance",
       "hurdle": "Net PnL > $0 and PF > 1.0 at 21.0 bps friction"
-    }
-  ],
-  "unresolved_decisions_and_research_notes": [
-    {
-      "decision_id": "DEC-01",
-      "topic": "Target Horizon and Holding Limit Lock",
-      "status": "LOCKED_AT_12H",
-      "detail": "Target horizon and maximum trade duration locked to exactly 12 hours (time_expiry_bars = 12). Fits cleanly inside the 48-hour purge window."
-    },
-    {
-      "decision_id": "DEC-02",
-      "topic": "Directional Target Symmetry",
-      "status": "LOCKED_AS_SYMMETRIC_3CLASS",
-      "detail": "Target C formalized with symmetric Long and Short barriers (+1 for Long breakout, -1 for Short breakout, 0 for neutral/expiry)."
-    },
-    {
-      "decision_id": "DEC-03",
-      "topic": "Closed-Trade MDD Classification",
-      "status": "CLASSIFIED_AS_DIAGNOSTIC",
-      "detail": "Closed-Trade MDD is strictly a diagnostic comparison metric. GATE-1 evaluates exclusively on the dual candle-level MTM MDD standard."
     }
   ]
 }

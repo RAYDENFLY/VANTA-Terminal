@@ -337,5 +337,4 @@ To maintain zero information leakage between In-Sample training and Out-of-Sampl
 | 20 | `XS_REL_RET_4` | 4 | 5 | Universe | RobustScaler | Zero |
 | 21 | `XS_BETA_24` | 24 | 25 | Universe | RobustScaler | Zero |
 
-**Maximum Warmup Requirement**: Exactly **100 bars** (100 hours $\approx$ 4.16 days).  
-Because the embargo warmup period is **48 hours**, datasets loaded for In-Sample training must be pre-padded with at least 100 historical bars prior to the fold start timestamp to ensure that feature values are 100% warm on the very first training bar.
+**Warmup Buffer Specification**: A nominal minimum of **100 bars** achieves 98.18% convergence for the 50-period EMA. To achieve >99.75% exponential decay convergence across all smoothers, the dataset loader will pre-pend a **150-bar warmup buffer** (150 hours $\approx$ 6.25 days) prior to the In-Sample start timestamp. All historical Parquet files contain continuous data to accommodate this buffer without holdout violation. Zero feature rows during the pre-pended buffer are included in training or evaluation matrices.
