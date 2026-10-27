@@ -1,0 +1,345 @@
+{
+  "audit_version": "1.0.0",
+  "audit_timestamp_utc": "2026-10-27T09:58:00Z",
+  "input_manifest_checksums": {
+    "master_summary": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\PHASE_4B_MASTER_SUMMARY.json",
+      "sha256": "10bbdd09a4e52e60360c4d0917d59aac67471477dbcd5ed2249fa9cec0c4ebeb"
+    },
+    "strat_a": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\STRAT_A_BENCHMARK.json",
+      "sha256": "0a3360f59e2198f04a5c08f739d89c46600e3b0077eb38a8253b10d0f3a2b0fa"
+    },
+    "strat_b": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\STRAT_B_BENCHMARK.json",
+      "sha256": "027b834abf9dcfee8b93d27ca70294bcb2436e63516c7d437b5333de88726bdf"
+    },
+    "strat_c": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\STRAT_C_BENCHMARK.json",
+      "sha256": "c93e46a048d0ecd4c5f82bd60c2b7d57155a6e84cb0d27929ff60ce2708edc52"
+    }
+  },
+  "strategies": {
+    "A": {
+      "strategy_id": "STRAT-A-01",
+      "strategy_name": "Sweep-Reclaim",
+      "timeframe": "15m",
+      "total_trades": 16934,
+      "net_pnl": -27264.91,
+      "fees_paid": 14809.71,
+      "slippage_paid": 5619.85,
+      "total_friction": 20429.56,
+      "recomputed_gross_pnl": -6835.35,
+      "fold_reconciliation": {
+        "fold_trades_sum": 16934,
+        "trades_match": true,
+        "fold_pnl_sum": -27264.9,
+        "pnl_diff": 0.01
+      },
+      "pair_reconciliation": {
+        "pair_trades_sum": 16934,
+        "trades_match": true,
+        "pair_pnl_sum": -27264.9,
+        "pnl_diff": 0.01
+      },
+      "gate_evaluation": [
+        {
+          "gate_id": "GATE-1",
+          "gate_name": "Maximum Drawdown (MDD)",
+          "hurdle": "<= 15.0%",
+          "observed_value": 272.65,
+          "denominator": "Continuous Equity Curve",
+          "passed": false,
+          "details": "Exceeds 15.0% threshold (Observed: 272.65%)"
+        },
+        {
+          "gate_id": "GATE-2",
+          "gate_name": "Net Expectancy per Trade",
+          "hurdle": ">= +8.0 bps (+0.08%)",
+          "observed_value": "-17.15 bps (95% CI: [-18.83, -15.46] bps)",
+          "denominator": "Total Trades (16934)",
+          "passed": false,
+          "details": "Fails hurdle"
+        },
+        {
+          "gate_id": "GATE-3",
+          "gate_name": "Profit Factor (PF)",
+          "hurdle": ">= 1.25",
+          "observed_value": 0.663,
+          "denominator": "Net Realized PnL",
+          "passed": false,
+          "details": "Below 1.25 (Observed: 0.66)"
+        },
+        {
+          "gate_id": "GATE-4",
+          "gate_name": "Aggregate Trade Count",
+          "hurdle": ">= 150 trades",
+          "observed_value": 16934,
+          "denominator": "10 Qualified Pairs (OOS Folds 1-3)",
+          "passed": true,
+          "details": "Passes"
+        },
+        {
+          "gate_id": "GATE-5",
+          "gate_name": "Per-Pair Minimum Trade Count",
+          "hurdle": ">= 20 trades per qualified pair",
+          "observed_value": "10 of 10 pairs >= 20",
+          "denominator": "10 Qualified Pairs",
+          "passed": true,
+          "details": "All pairs satisfy minimum activity"
+        },
+        {
+          "gate_id": "GATE-6",
+          "gate_name": "Walk-Forward Consistency",
+          "hurdle": ">= 2 of 3 Folds Profitable",
+          "observed_value": "0 of 3 folds",
+          "denominator": "3 Rolling WF Folds",
+          "passed": false,
+          "details": "Only 0 of 3 folds profitable"
+        },
+        {
+          "gate_id": "GATE-7",
+          "gate_name": "Spatial Robustness",
+          "hurdle": ">= 7 of 10 Qualified Pairs Profitable",
+          "observed_value": "0 of 10 pairs",
+          "denominator": "10 Qualified Pairs (Frozen Denominator)",
+          "passed": false,
+          "details": "Only 0 of 10 qualified pairs profitable"
+        },
+        {
+          "gate_id": "GATE-8",
+          "gate_name": "Friction Stress Tolerance",
+          "hurdle": "Net PnL > 0 and PF > 1.0 at 21.0 bps friction",
+          "observed_value": "Net PnL: $-37479.69, PF: 0.58",
+          "denominator": "Stress Configuration (7.5 bps fee + 3.0 bps slip)",
+          "passed": false,
+          "details": "Fragile to elevated execution friction"
+        }
+      ],
+      "fallback_status": "NO_QUALIFIED_STRATEGY"
+    },
+    "B": {
+      "strategy_id": "STRAT-B-01",
+      "strategy_name": "Donchian Breakout / Trend",
+      "timeframe": "1H",
+      "total_trades": 2851,
+      "net_pnl": 914.31,
+      "fees_paid": 2848.17,
+      "slippage_paid": 1137.69,
+      "total_friction": 3985.86,
+      "recomputed_gross_pnl": 4900.17,
+      "fold_reconciliation": {
+        "fold_trades_sum": 2851,
+        "trades_match": true,
+        "fold_pnl_sum": 914.3,
+        "pnl_diff": 0.01
+      },
+      "pair_reconciliation": {
+        "pair_trades_sum": 2851,
+        "trades_match": true,
+        "pair_pnl_sum": 914.31,
+        "pnl_diff": 0.0
+      },
+      "gate_evaluation": [
+        {
+          "gate_id": "GATE-1",
+          "gate_name": "Maximum Drawdown (MDD)",
+          "hurdle": "<= 15.0%",
+          "observed_value": 14.89,
+          "denominator": "Continuous Equity Curve",
+          "passed": true,
+          "details": "Passes"
+        },
+        {
+          "gate_id": "GATE-2",
+          "gate_name": "Net Expectancy per Trade",
+          "hurdle": ">= +8.0 bps (+0.08%)",
+          "observed_value": "3.26 bps (95% CI: [-10.74, 17.26] bps)",
+          "denominator": "Total Trades (2851)",
+          "passed": false,
+          "details": "Fails hurdle"
+        },
+        {
+          "gate_id": "GATE-3",
+          "gate_name": "Profit Factor (PF)",
+          "hurdle": ">= 1.25",
+          "observed_value": 1.029,
+          "denominator": "Net Realized PnL",
+          "passed": false,
+          "details": "Below 1.25 (Observed: 1.03)"
+        },
+        {
+          "gate_id": "GATE-4",
+          "gate_name": "Aggregate Trade Count",
+          "hurdle": ">= 150 trades",
+          "observed_value": 2851,
+          "denominator": "10 Qualified Pairs (OOS Folds 1-3)",
+          "passed": true,
+          "details": "Passes"
+        },
+        {
+          "gate_id": "GATE-5",
+          "gate_name": "Per-Pair Minimum Trade Count",
+          "hurdle": ">= 20 trades per qualified pair",
+          "observed_value": "10 of 10 pairs >= 20",
+          "denominator": "10 Qualified Pairs",
+          "passed": true,
+          "details": "All pairs satisfy minimum activity"
+        },
+        {
+          "gate_id": "GATE-6",
+          "gate_name": "Walk-Forward Consistency",
+          "hurdle": ">= 2 of 3 Folds Profitable",
+          "observed_value": "2 of 3 folds",
+          "denominator": "3 Rolling WF Folds",
+          "passed": true,
+          "details": "Passes temporal stability"
+        },
+        {
+          "gate_id": "GATE-7",
+          "gate_name": "Spatial Robustness",
+          "hurdle": ">= 7 of 10 Qualified Pairs Profitable",
+          "observed_value": "6 of 10 pairs",
+          "denominator": "10 Qualified Pairs (Frozen Denominator)",
+          "passed": false,
+          "details": "Only 6 of 10 qualified pairs profitable"
+        },
+        {
+          "gate_id": "GATE-8",
+          "gate_name": "Friction Stress Tolerance",
+          "hurdle": "Net PnL > 0 and PF > 1.0 at 21.0 bps friction",
+          "observed_value": "Net PnL: $-1078.63, PF: 0.97",
+          "denominator": "Stress Configuration (7.5 bps fee + 3.0 bps slip)",
+          "passed": false,
+          "details": "Fragile to elevated execution friction"
+        }
+      ],
+      "fallback_status": "NO_QUALIFIED_STRATEGY"
+    },
+    "C": {
+      "strategy_id": "STRAT-C-01",
+      "strategy_name": "Bollinger Bands + RSI Mean Reversion",
+      "timeframe": "15m",
+      "total_trades": 3362,
+      "net_pnl": -6946.99,
+      "fees_paid": 3166.15,
+      "slippage_paid": 1228.47,
+      "total_friction": 4394.62,
+      "recomputed_gross_pnl": -2552.37,
+      "fold_reconciliation": {
+        "fold_trades_sum": 3362,
+        "trades_match": true,
+        "fold_pnl_sum": -6946.98,
+        "pnl_diff": 0.01
+      },
+      "pair_reconciliation": {
+        "pair_trades_sum": 3362,
+        "trades_match": true,
+        "pair_pnl_sum": -6946.99,
+        "pnl_diff": 0.0
+      },
+      "gate_evaluation": [
+        {
+          "gate_id": "GATE-1",
+          "gate_name": "Maximum Drawdown (MDD)",
+          "hurdle": "<= 15.0%",
+          "observed_value": 69.55,
+          "denominator": "Continuous Equity Curve",
+          "passed": false,
+          "details": "Exceeds 15.0% threshold (Observed: 69.55%)"
+        },
+        {
+          "gate_id": "GATE-2",
+          "gate_name": "Net Expectancy per Trade",
+          "hurdle": ">= +8.0 bps (+0.08%)",
+          "observed_value": "-21.03 bps (95% CI: [-24.81, -17.26] bps)",
+          "denominator": "Total Trades (3362)",
+          "passed": false,
+          "details": "Fails hurdle"
+        },
+        {
+          "gate_id": "GATE-3",
+          "gate_name": "Profit Factor (PF)",
+          "hurdle": ">= 1.25",
+          "observed_value": 0.612,
+          "denominator": "Net Realized PnL",
+          "passed": false,
+          "details": "Below 1.25 (Observed: 0.61)"
+        },
+        {
+          "gate_id": "GATE-4",
+          "gate_name": "Aggregate Trade Count",
+          "hurdle": ">= 150 trades",
+          "observed_value": 3362,
+          "denominator": "10 Qualified Pairs (OOS Folds 1-3)",
+          "passed": true,
+          "details": "Passes"
+        },
+        {
+          "gate_id": "GATE-5",
+          "gate_name": "Per-Pair Minimum Trade Count",
+          "hurdle": ">= 20 trades per qualified pair",
+          "observed_value": "10 of 10 pairs >= 20",
+          "denominator": "10 Qualified Pairs",
+          "passed": true,
+          "details": "All pairs satisfy minimum activity"
+        },
+        {
+          "gate_id": "GATE-6",
+          "gate_name": "Walk-Forward Consistency",
+          "hurdle": ">= 2 of 3 Folds Profitable",
+          "observed_value": "0 of 3 folds",
+          "denominator": "3 Rolling WF Folds",
+          "passed": false,
+          "details": "Only 0 of 3 folds profitable"
+        },
+        {
+          "gate_id": "GATE-7",
+          "gate_name": "Spatial Robustness",
+          "hurdle": ">= 7 of 10 Qualified Pairs Profitable",
+          "observed_value": "0 of 10 pairs",
+          "denominator": "10 Qualified Pairs (Frozen Denominator)",
+          "passed": false,
+          "details": "Only 0 of 10 qualified pairs profitable"
+        },
+        {
+          "gate_id": "GATE-8",
+          "gate_name": "Friction Stress Tolerance",
+          "hurdle": "Net PnL > 0 and PF > 1.0 at 21.0 bps friction",
+          "observed_value": "Net PnL: $-9144.30, PF: 0.53",
+          "denominator": "Stress Configuration (7.5 bps fee + 3.0 bps slip)",
+          "passed": false,
+          "details": "Fragile to elevated execution friction"
+        }
+      ],
+      "fallback_status": "NO_QUALIFIED_STRATEGY"
+    }
+  },
+  "discrepancies": [
+    {
+      "issue_id": "DISC-001",
+      "dimension": "PnL Rounding",
+      "severity": "LOW (Cosmetic)",
+      "evidence": "Sum of rounded fold net PnLs differs from unrounded net_pnl by $0.01 in all strategies.",
+      "impact": "Negligible ($0.01 / 0.0001% of portfolio equity). No gate status altered.",
+      "recommended_action": "Document rounding convention in final audit report."
+    },
+    {
+      "issue_id": "DISC-002",
+      "dimension": "Drawdown Semantics",
+      "severity": "MEDIUM (Methodology Clarification)",
+      "evidence": "Strategy A reported 272.65% MDD because cum_equity plunged to -$17,265 without zero-floor clamping.",
+      "impact": "Accurately conveys catastrophic cumulative loss ($27,265 on $10k capital), but exceeds physical 100% liquidation limit of an isolated single account.",
+      "recommended_action": "Clarify in docs that multi-pair un-clamped cashflow reflects unconstrained strategy drag across the 10 streams."
+    },
+    {
+      "issue_id": "DISC-003",
+      "dimension": "Statistical Inference",
+      "severity": "MEDIUM (Statistical Limitation)",
+      "evidence": "95% Student's t CI treats 2,851 trades as i.i.d. observations, ignoring cross-pair correlation and temporal volatility clustering.",
+      "impact": "Understates standard error; CI is narrower than true regime-clustered variance. CI is purely descriptive and not used by any qualification gate.",
+      "recommended_action": "Label CI as descriptive with documented i.i.d. limitations. Propose block-bootstrap for Phase 5."
+    }
+  ],
+  "overall_status": "AUDIT_PASS_WITH_LIMITATIONS"
+}
