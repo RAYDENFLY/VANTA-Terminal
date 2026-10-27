@@ -1,0 +1,310 @@
+{
+  "audit_phase": "Phase 4B.2 Portfolio Equity & Risk Audit",
+  "timestamp_utc": "2026-10-27T12:00:00Z",
+  "exit_status": "RISK_AUDIT_PASS_WITH_LIMITATIONS",
+  "certified_outcome_impact": "NO_CHANGE (NO_QUALIFIED_STRATEGY PRESERVED; STRAT B REMAINS UNQUALIFIED_BASELINE)",
+  "input_manifest_checksums": {
+    "master_summary": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\PHASE_4B_MASTER_SUMMARY.json",
+      "sha256": "10bbdd09a4e52e60360c4d0917d59aac67471477dbcd5ed2249fa9cec0c4ebeb"
+    },
+    "strat_a": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\STRAT_A_BENCHMARK.json",
+      "sha256": "0a3360f59e2198f04a5c08f739d89c46600e3b0077eb38a8253b10d0f3a2b0fa"
+    },
+    "strat_b": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\STRAT_B_BENCHMARK.json",
+      "sha256": "027b834abf9dcfee8b93d27ca70294bcb2436e63516c7d437b5333de88726bdf"
+    },
+    "strat_c": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b\\STRAT_C_BENCHMARK.json",
+      "sha256": "c93e46a048d0ecd4c5f82bd60c2b7d57155a6e84cb0d27929ff60ce2708edc52"
+    },
+    "audit_4b1_summary": {
+      "path": "D:\\vanta-terminal\\data\\benchmarks\\phase_4b_audit\\audit_summary.json",
+      "sha256": "a2d4ac5941b0dd53b04f3cbe89421903ecdfedfc32d093770dbfcf3dd468d46d"
+    }
+  },
+  "strategies": {
+    "B": {
+      "strategy_code": "B",
+      "strategy_name": "Donchian Breakout / Trend",
+      "timeframe": "1H",
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS",
+      "reported_benchmark": {
+        "total_oos_trades": 2851,
+        "total_net_pnl": 914.31,
+        "reported_max_drawdown_pct": 14.89
+      },
+      "recomputed_benchmark": {
+        "total_oos_trades": 2851,
+        "total_net_pnl": 914.31,
+        "runner_order_mdd_pct": 14.891,
+        "runner_order_mdd_clamped_pct": 14.891,
+        "exit_time_chronological_mdd_pct": 17.1524,
+        "exit_time_chronological_clamped_pct": 17.1524,
+        "entry_time_chronological_mdd_pct": 17.3705
+      },
+      "folds": [
+        {
+          "fold_id": 1,
+          "trades_count": 954,
+          "net_pnl": 1691.7,
+          "max_simultaneous_positions": 10,
+          "avg_simultaneous_positions": 2.88,
+          "peak_aggregate_notional": 10161.72,
+          "avg_aggregate_notional": 2902.92,
+          "peak_leverage_10k_base": 1.02,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 10.8083,
+            "runner_order_clamped_pct": 10.8083,
+            "exit_time_chronological_pct": 12.4348,
+            "exit_time_clamped_pct": 12.4348,
+            "entry_time_chronological_pct": 12.4623,
+            "true_mtm_100k_capital_base_pct": 2.0297,
+            "true_mtm_10k_normalized_base_pct": 15.4488
+          }
+        },
+        {
+          "fold_id": 2,
+          "trades_count": 859,
+          "net_pnl": 372.55,
+          "max_simultaneous_positions": 10,
+          "avg_simultaneous_positions": 2.82,
+          "peak_aggregate_notional": 10080.98,
+          "avg_aggregate_notional": 2815.7,
+          "peak_leverage_10k_base": 1.01,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 6.011,
+            "runner_order_clamped_pct": 6.011,
+            "exit_time_chronological_pct": 12.6263,
+            "exit_time_clamped_pct": 12.6263,
+            "entry_time_chronological_pct": 12.3149,
+            "true_mtm_100k_capital_base_pct": 1.5862,
+            "true_mtm_10k_normalized_base_pct": 14.3907
+          }
+        },
+        {
+          "fold_id": 3,
+          "trades_count": 1038,
+          "net_pnl": -1149.95,
+          "max_simultaneous_positions": 10,
+          "avg_simultaneous_positions": 3.81,
+          "peak_aggregate_notional": 10021.85,
+          "avg_aggregate_notional": 3775.56,
+          "peak_leverage_10k_base": 1.0,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 14.4019,
+            "runner_order_clamped_pct": 14.4019,
+            "exit_time_chronological_pct": 18.742,
+            "exit_time_clamped_pct": 18.742,
+            "entry_time_chronological_pct": 19.3568,
+            "true_mtm_100k_capital_base_pct": 2.2295,
+            "true_mtm_10k_normalized_base_pct": 20.721
+          }
+        }
+      ]
+    },
+    "A": {
+      "strategy_code": "A",
+      "strategy_name": "Sweep-Reclaim",
+      "timeframe": "15m",
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS",
+      "reported_benchmark": {
+        "total_oos_trades": 16934,
+        "total_net_pnl": -27264.91,
+        "reported_max_drawdown_pct": 272.65
+      },
+      "recomputed_benchmark": {
+        "total_oos_trades": 16934,
+        "total_net_pnl": -27264.91,
+        "runner_order_mdd_pct": 272.6491,
+        "runner_order_mdd_clamped_pct": 100.0,
+        "exit_time_chronological_mdd_pct": 272.7848,
+        "exit_time_chronological_clamped_pct": 100.0,
+        "entry_time_chronological_mdd_pct": 272.273
+      },
+      "folds": [
+        {
+          "fold_id": 1,
+          "trades_count": 4386,
+          "net_pnl": -6661.3,
+          "max_simultaneous_positions": 10,
+          "avg_simultaneous_positions": 1.7,
+          "peak_aggregate_notional": 9910.37,
+          "avg_aggregate_notional": 1626.53,
+          "peak_leverage_10k_base": 0.99,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 66.613,
+            "runner_order_clamped_pct": 66.613,
+            "exit_time_chronological_pct": 67.0857,
+            "exit_time_clamped_pct": 67.0857,
+            "entry_time_chronological_pct": 67.2033,
+            "true_mtm_100k_capital_base_pct": 6.7817,
+            "true_mtm_10k_normalized_base_pct": 67.8173
+          }
+        },
+        {
+          "fold_id": 2,
+          "trades_count": 5685,
+          "net_pnl": -10836.56,
+          "max_simultaneous_positions": 10,
+          "avg_simultaneous_positions": 2.03,
+          "peak_aggregate_notional": 8943.38,
+          "avg_aggregate_notional": 1890.65,
+          "peak_leverage_10k_base": 0.89,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 108.4031,
+            "runner_order_clamped_pct": 100.0,
+            "exit_time_chronological_pct": 108.5665,
+            "exit_time_clamped_pct": 100.0,
+            "entry_time_chronological_pct": 108.5715,
+            "true_mtm_100k_capital_base_pct": 10.973,
+            "true_mtm_10k_normalized_base_pct": 109.73
+          }
+        },
+        {
+          "fold_id": 3,
+          "trades_count": 6863,
+          "net_pnl": -9767.04,
+          "max_simultaneous_positions": 10,
+          "avg_simultaneous_positions": 2.52,
+          "peak_aggregate_notional": 9813.99,
+          "avg_aggregate_notional": 2373.24,
+          "peak_leverage_10k_base": 0.98,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 97.6704,
+            "runner_order_clamped_pct": 97.6704,
+            "exit_time_chronological_pct": 98.3481,
+            "exit_time_clamped_pct": 98.3481,
+            "entry_time_chronological_pct": 98.3275,
+            "true_mtm_100k_capital_base_pct": 10.0163,
+            "true_mtm_10k_normalized_base_pct": 100.1633
+          }
+        }
+      ]
+    },
+    "C": {
+      "strategy_code": "C",
+      "strategy_name": "Bollinger Bands + RSI Mean Reversion",
+      "timeframe": "15m",
+      "classification": "VERIFIED_FROM_CODE_AND_ARTIFACTS",
+      "reported_benchmark": {
+        "total_oos_trades": 3362,
+        "total_net_pnl": -6946.99,
+        "reported_max_drawdown_pct": 69.55
+      },
+      "recomputed_benchmark": {
+        "total_oos_trades": 3362,
+        "total_net_pnl": -6946.99,
+        "runner_order_mdd_pct": 69.5451,
+        "runner_order_mdd_clamped_pct": 69.5451,
+        "exit_time_chronological_mdd_pct": 69.7444,
+        "exit_time_chronological_clamped_pct": 69.7444,
+        "entry_time_chronological_mdd_pct": 69.7444
+      },
+      "folds": [
+        {
+          "fold_id": 1,
+          "trades_count": 1402,
+          "net_pnl": -3379.64,
+          "max_simultaneous_positions": 9,
+          "avg_simultaneous_positions": 0.42,
+          "peak_aggregate_notional": 8973.12,
+          "avg_aggregate_notional": 411.89,
+          "peak_leverage_10k_base": 0.9,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 33.889,
+            "runner_order_clamped_pct": 33.889,
+            "exit_time_chronological_pct": 33.7964,
+            "exit_time_clamped_pct": 33.7964,
+            "entry_time_chronological_pct": 33.7964,
+            "true_mtm_100k_capital_base_pct": 3.4003,
+            "true_mtm_10k_normalized_base_pct": 34.003
+          }
+        },
+        {
+          "fold_id": 2,
+          "trades_count": 1155,
+          "net_pnl": -2218.73,
+          "max_simultaneous_positions": 10,
+          "avg_simultaneous_positions": 0.44,
+          "peak_aggregate_notional": 9860.2,
+          "avg_aggregate_notional": 436.94,
+          "peak_leverage_10k_base": 0.99,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 22.646,
+            "runner_order_clamped_pct": 22.646,
+            "exit_time_chronological_pct": 24.3979,
+            "exit_time_clamped_pct": 24.3979,
+            "entry_time_chronological_pct": 24.131,
+            "true_mtm_100k_capital_base_pct": 2.4927,
+            "true_mtm_10k_normalized_base_pct": 24.8411
+          }
+        },
+        {
+          "fold_id": 3,
+          "trades_count": 805,
+          "net_pnl": -1348.61,
+          "max_simultaneous_positions": 9,
+          "avg_simultaneous_positions": 0.35,
+          "peak_aggregate_notional": 8973.49,
+          "avg_aggregate_notional": 343.22,
+          "peak_leverage_10k_base": 0.9,
+          "drawdowns": {
+            "runner_order_unclamped_pct": 13.5187,
+            "runner_order_clamped_pct": 13.5187,
+            "exit_time_chronological_pct": 13.9838,
+            "exit_time_clamped_pct": 13.9838,
+            "entry_time_chronological_pct": 13.9838,
+            "true_mtm_100k_capital_base_pct": 1.4128,
+            "true_mtm_10k_normalized_base_pct": 14.1167
+          }
+        }
+      ]
+    }
+  },
+  "discrepancies": [
+    {
+      "issue_id": "DISC-4B2-01",
+      "dimension": "Multi-Pair Cashflow Serialization vs Chronological Execution",
+      "severity": "HIGH (Methodology Architecture Limitation)",
+      "evidence": "In walk_forward_runner.py, trade cashflows were appended pair-by-pair rather than sorted chronologically by exit_time_ms. In Strategy B, chronological exit-time MDD is 17.1524%, whereas pair-concatenated MDD was reported as 14.8910%. The 15.0% hurdle was crossed in true chronological time.",
+      "impact": "Strategy B's continuous chronological cashflow MDD breaches GATE-1 (17.15% > 15.0%). However, Strategy B already failed GATE-2, GATE-3, GATE-7, and GATE-8 in Phase 4B, so the global certified decision remains NO_QUALIFIED_STRATEGY. Strategy B remains the UNQUALIFIED_BASELINE.",
+      "recommended_action": "Implement a true multi-pair event queue in the Phase 5 ML backtest engine that merges all trade fills and cashflows strictly by timestamp (exit_time_ms)."
+    },
+    {
+      "issue_id": "DISC-4B2-02",
+      "dimension": "Independent Isolated Sub-Accounts vs Shared Portfolio Margin",
+      "severity": "HIGH (Portfolio Capital Representation)",
+      "evidence": "Each of the 10 pairs was executed in an isolated backtest engine initialized with $10,000 cash. Total deployed simulation capital across the 10 pairs was $100,000 ($10,000 x 10). During peak hours, up to 10 pairs held open positions simultaneously ($10,161 peak notional). Position sizing in each pair reflected only that pair's local balance, without shared margin contention.",
+      "impact": "The reported $10,000 portfolio equity curve is a synthetic normalization convention, not a physically constrained shared-margin account. If gross leverage had exceeded 1.0x or if cash had become negative in one pair, the other pairs would not have been impacted.",
+      "recommended_action": "Explicitly document the current model as '10 Independent Sub-Accounts Normalized to $10k'. Build a unified centralized portfolio margin coordinator in Phase 5 to support cross-instrument margin sharing."
+    },
+    {
+      "issue_id": "DISC-4B2-03",
+      "dimension": "Un-Clamped Equity Accumulation & Bankruptcy Floor",
+      "severity": "MEDIUM (Accounting Semantics)",
+      "evidence": "Strategy A reported an MDD of 272.65% because cumulative losses (-$27,264.91) accumulated continuously on a synthetic $10,000 base without a zero-equity floor. In an isolated executable account, capital is liquidated at 100% loss ($0.00 equity).",
+      "impact": "Reporting 272.65% MDD accurately reflects cumulative unconstrained strategy drag (2.72x capital loss), but violates standard portfolio risk conventions where max drawdown cannot exceed 100%.",
+      "recommended_action": "Provide both un-clamped strategy drag (272.65%) and clamped bankruptcy drawdown (100.0%) in risk analytics."
+    },
+    {
+      "issue_id": "DISC-4B2-04",
+      "dimension": "Fold Cash Reset Inconsistency in Combined MDD",
+      "severity": "MEDIUM (Walk-Forward Accounting Consistency)",
+      "evidence": "Each OOS fold initialized engines with a fresh $10,000 cash reset, but the overall OOS MDD was calculated by compounding trade cashflows continuously across all 3 folds without resetting equity at fold boundaries. In Fold 3 alone, Strategy B suffered an independent chronological drawdown of 18.74%.",
+      "impact": "Trade notionals in Fold 3 were sized off a local $10,000 base, but accumulated in the combined curve on top of Fold 1 and 2 profits ($12,721 HWM). Evaluating folds independently reveals that Fold 3 exceeded the 15% risk budget.",
+      "recommended_action": "Report per-fold MDD alongside combined multi-fold MDD, and enforce that candidate strategies must pass the MDD hurdle in every individual fold as well as combined."
+    }
+  ],
+  "methodology_answers": {
+    "finding_A_equity_series": "The reported MDD was computed strictly from trade-close cashflows (t.net_pnl in trade_ledger.json). It did NOT use bar-by-bar candle-marked mark-to-market equity. Intrabar excursions were excluded.",
+    "finding_B_chronology_and_positions": "Simultaneous trades were NOT processed chronologically in the runner. Trades were concatenated pair-by-pair within each fold. When recomputed chronologically by exit time, Strategy B MDD rises from 14.89% to 17.15%.",
+    "finding_C_capital_allocation": "The simulation allocated $10,000 independently to each of the 10 pairs ($100,000 total capital). The $10,000 portfolio curve is a synthetic normalization convention. Each pair traded ~10% notional ($1,000), and simultaneous positions averaged 2.8-3.8 pairs, peaking at 10 pairs ($10,161 peak notional / 1.02x leverage).",
+    "finding_D_fold_reset_and_mdd": "Folds reset to $10,000 cash in the engine, but the combined MDD compounded cashflows continuously. Fold-specific exit-time MDD was 12.43% (Fold 1), 12.63% (Fold 2), and 18.74% (Fold 3). Fold 3 breached the 15% hurdle.",
+    "finding_E_reproduction_status": "Strategy B reported MDD of 14.89% is EXACTLY REPRODUCED as 14.8910% from existing saved artifacts. Status: VERIFIED_FROM_CODE_AND_ARTIFACTS.",
+    "finding_F_strategy_a_mdd_interpretation": "Strategy A's 272.65% MDD measures cumulative unhedged strategy drag across 10 unconstrained streams. It is not a realistic single-account executable metric. Under a physical zero-floor, MDD is clamped at 100.0%.",
+    "finding_G_qualification_gate_verdict": "No revision of the historical Phase 4B outcome is required. All 3 candidates remain unqualified. The certified global decision remains NO_QUALIFIED_STRATEGY."
+  }
+}
