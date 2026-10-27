@@ -94,6 +94,13 @@ def stationary_block_bootstrap_portfolio(
      Reconstructed synthetic equity curve from resampled daily portfolio returns.
      Report 95th Percentile Worst-Case Drawdown bound: $\text{MDD}^*_{0.95}$.
 
+### 2.5 Paired Bootstrap for Incremental Performance ($\Delta_{\text{ML}}$)
+To directly test whether an ML candidate statistically outperforms the `UNQUALIFIED_BASELINE` reference strategy, the bootstrap resamples the **exact same daily calendar blocks** simultaneously for both models:
+$$\Delta^*_{\text{PnL}, b} = \text{NetPnL}^*_{\text{ML}, b} - \text{NetPnL}^*_{\text{StratB}, b}$$
+$$\Delta^*_{\text{Exp}, b} = \text{Exp}^*_{\text{ML}, b} - \text{Exp}^*_{\text{StratB}, b}$$
+$$\Delta^*_{\text{PF}, b} = \text{PF}^*_{\text{ML}, b} - \text{PF}^*_{\text{StratB}, b}$$
+- **Hypothesis Testing**: A candidate achieves statistically significant outperformance over Strategy B if the 95% bootstrap confidence interval $[\Delta^*_{0.025}, \Delta^*_{0.975}]$ lies strictly above zero ($\Delta^*_{0.025} > 0$).
+
 ---
 
 ## 3. Descriptive Uncertainty vs. Qualification Gate Hurdles
@@ -142,6 +149,9 @@ The maximum peak-to-trough decline of $E_{\text{chained}}(t)$ over the entire 18
 $$\text{MDD}_{\text{chained}} \le 15.0\%$$
 
 **Evaluation Rule**: If either Condition A or Condition B exceeds 15.00%, GATE-1 is marked as **`FAILED`**. Both values must be explicitly recorded in the benchmark JSON manifest.
+
+### Formal Diagnostic Status of Closed-Trade MDD
+The frozen qualification protocol contains exactly **8 qualification gates**. GATE-1 is evaluated exclusively on the pre-registered dual Mark-to-Market (MTM) standard. Closed-trade MDD is strictly a **diagnostic metric** recorded for historical comparison with Phase 4B legacy benchmarks; it does not constitute an independent hurdle or a 9th gate.
 
 ---
 

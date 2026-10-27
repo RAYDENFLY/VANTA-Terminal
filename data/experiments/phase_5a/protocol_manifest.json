@@ -1,9 +1,17 @@
 {
   "protocol_id": "VANTA-PROTO-5A-ML-RESEARCH",
-  "version": "1.0.0-FROZEN",
+  "version": "1.1.0-AUDITED",
   "created_at_utc": "2026-10-27T14:45:00Z",
+  "audited_at_utc": "2026-10-27T14:54:00Z",
   "author": "Antigravity Quant Agent",
-  "status": "PROTOCOL_READY_FOR_APPROVAL",
+  "status": "PROTOCOL_APPROVAL_READY",
+  "audit_reference": "docs/PHASE_5A1_PROTOCOL_CONSISTENCY_AUDIT.md",
+  "document_checksums": {
+    "PHASE_5A_ML_RESEARCH_PROTOCOL.md": "170b5bfd4b3b2d0c6869f9baf87d643cc8c67fc79a911699b68221152d516e35",
+    "PHASE_5A_FEATURE_CATALOG.md": "6f50a9b756173c672c37cfaafb6695656bb5f38858df350c2bdb35e4c4c552f9",
+    "PHASE_5A_EVALUATION_AND_STATISTICS_SPEC.md": "b8436a0c9ea964c50895407be12ff0d24976a8dc86efb297298f74ff252d3c12",
+    "PHASE_5A1_PROTOCOL_CONSISTENCY_AUDIT.md": "32db08f6965ddf6f32d6e98314db680c646e0d6b57c2768a9fba2d5f6b1e09c9"
+  },
   "certified_baseline_reference": {
     "strategy_id": "STRAT-B-01",
     "strategy_name": "Donchian Breakout / Trend",
@@ -57,10 +65,14 @@
         "type": "TRIPLE_BARRIER_COST_AWARE",
         "recommended": true,
         "horizon_bars": 12,
-        "profit_hurdle": "1.5 * ATR_14 / Close + 0.0014",
-        "stop_hurdle": "1.0 * ATR_14 / Close",
+        "holding_limit_bars": 12,
+        "long_profit_hurdle": "P_entry * (1 + 1.5 * ATR_14 / Close + 0.0014)",
+        "long_stop_hurdle": "P_entry * (1 - 1.0 * ATR_14 / Close)",
+        "short_profit_hurdle": "P_entry * (1 - 1.5 * ATR_14 / Close - 0.0014)",
+        "short_stop_hurdle": "P_entry * (1 + 1.0 * ATR_14 / Close)",
+        "collision_policy": "CONSERVATIVE_SL_FIRST",
         "cost_hurdle_bps": 14.0,
-        "labels": {"PROFIT_TAKE": 1, "TIME_EXPIRY": 0, "STOP_LOSS": -1}
+        "labels": {"LONG_BREAKOUT": 1, "NEUTRAL_EXPIRY": 0, "SHORT_BREAKOUT": -1}
       }
     ],
     "frozen_primary_target": "TARGET-C-BARRIER"
@@ -175,6 +187,7 @@
     "num_replicates": 2000,
     "random_seed": 42,
     "confidence_level": 0.95,
+    "paired_bootstrap_enabled": true,
     "role": "Descriptive uncertainty quantification; deterministic point gates remain binding."
   },
   "qualification_gates": [
@@ -182,7 +195,7 @@
       "gate_id": "GATE-1",
       "gate_name": "Maximum Drawdown (MDD)",
       "hurdle": "<= 15.0%",
-      "interpretation": "DUAL_CRITERIA (Per-fold MTM MDD <= 15.0% in every fold AND Combined Chained MTM MDD <= 15.0%)"
+      "interpretation": "DUAL_CRITERIA (Per-fold MTM MDD <= 15.0% in every fold AND Combined Chained MTM MDD <= 15.0%). Closed-trade MDD is diagnostic-only."
     },
     {
       "gate_id": "GATE-2",
@@ -223,21 +236,21 @@
   "unresolved_decisions_and_research_notes": [
     {
       "decision_id": "DEC-01",
-      "topic": "Target Horizon vs Holding Limit",
-      "status": "FROZEN_AT_12H",
-      "detail": "Target horizon set to 12 hours with maximum trade holding period of 36 hours to strictly fit within the frozen 48-hour purge window."
+      "topic": "Target Horizon and Holding Limit Lock",
+      "status": "LOCKED_AT_12H",
+      "detail": "Target horizon and maximum trade duration locked to exactly 12 hours (time_expiry_bars = 12). Fits cleanly inside the 48-hour purge window."
     },
     {
       "decision_id": "DEC-02",
-      "topic": "Model Complexity Guard",
-      "status": "ENFORCED",
-      "detail": "Deep learning (LSTM, Transformer) and broad hyperparameter AutoML searches are strictly prohibited. Models restricted to regularized Logit, LightGBM, and XGBoost."
+      "topic": "Directional Target Symmetry",
+      "status": "LOCKED_AS_SYMMETRIC_3CLASS",
+      "detail": "Target C formalized with symmetric Long and Short barriers (+1 for Long breakout, -1 for Short breakout, 0 for neutral/expiry)."
     },
     {
       "decision_id": "DEC-03",
-      "topic": "Feature Warmup Buffer",
-      "status": "RESOLVED",
-      "detail": "Datasets must be loaded with at least 100 historical bars prior to IS start to ensure features (e.g. 50-period EMA, 24-period ranges) are fully warmed up on bar 0 of training."
+      "topic": "Closed-Trade MDD Classification",
+      "status": "CLASSIFIED_AS_DIAGNOSTIC",
+      "detail": "Closed-Trade MDD is strictly a diagnostic comparison metric. GATE-1 evaluates exclusively on the dual candle-level MTM MDD standard."
     }
   ]
 }

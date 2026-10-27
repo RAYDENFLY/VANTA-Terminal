@@ -119,24 +119,26 @@ We specify three candidate target formulations for comparative evaluation. The s
 - **Disadvantage**: Outliers and extreme volatility spikes disproportionately dominate MSE loss; regression models often shrink predictions toward zero in noisy regimes.
 
 #### Target C: Cost-Aware Barrier Target (`TARGET-C-BARRIER` — Recommended Primary Target)
-- **Formula**: Evaluates the path of price over forward window $h \in [1, H]$ against an upper hurdle $\theta_{\text{profit}}$, a lower stop-loss $\theta_{\text{stop}}$, and a holding horizon $H$:
+- **Formula**: Evaluates the path of price over forward window $h \in [1, H]$ starting from entry price $P_{\text{entry}} = O_{t+1} \times (1 \pm \text{slip})$ against symmetric directional profit and stop-loss barriers over horizon $H = 12\text{ bars}$ (12 hours):
   $$y_t = \begin{cases} 
-  +1 & \text{if } \max_{h \in [1, H]} \left(\frac{P_{t+h} - P_t}{P_t}\right) \ge \theta_{\text{profit}} \text{ before stop touched} \\
-  -1 & \text{if } \min_{h \in [1, H]} \left(\frac{P_{t+h} - P_t}{P_t}\right) \le -\theta_{\text{stop}} \text{ before profit touched} \\
-  0 & \text{if neither barrier touched within horizon } H \text{ (time expiry)}
+  +1 & \text{if path reaches Upper Long Barrier before Lower Long Barrier} \quad (\text{LONG}) \\
+  -1 & \text{if path reaches Lower Short Barrier before Upper Short Barrier} \quad (\text{SHORT}) \\
+  0 & \text{if neither barrier touched within horizon } H = 12\text{ bars} \quad (\text{NEUTRAL / TIME\_EXPIRY})
   \end{cases}$$
-- **Hurdle Calibration**:
-  - $\theta_{\text{profit}} = 1.5 \times \text{ATR}_{14}(t) / P_t + \text{Cost Hurdle}$, where $\text{Cost Hurdle} = 0.0014$ (14.0 bps baseline round-trip friction).
-  - $\theta_{\text{stop}} = 1.0 \times \text{ATR}_{14}(t) / P_t$.
-  - Horizon $H = 12$ bars (12 hours on 1H timeframe).
+- **Barrier Price Definitions**:
+  - **Long Profit Barrier**: $P_{\text{entry}} \times \left(1 + 1.5 \cdot \frac{\text{ATR}_{14, t}}{C_t} + 0.0014\right)$ (includes 14.0 bps round-trip friction hurdle).
+  - **Long Stop Barrier**: $P_{\text{entry}} \times \left(1 - 1.0 \cdot \frac{\text{ATR}_{14, t}}{C_t}\right)$.
+  - **Short Profit Barrier**: $P_{\text{entry}} \times \left(1 - 1.5 \cdot \frac{\text{ATR}_{14, t}}{C_t} - 0.0014\right)$ (includes 14.0 bps round-trip friction hurdle).
+  - **Short Stop Barrier**: $P_{\text{entry}} \times \left(1 + 1.0 \cdot \frac{\text{ATR}_{14, t}}{C_t}\right)$.
+- **Collision & Same-Candle Policy**: Under `ExecutionPolicy.CONSERVATIVE_SL_FIRST`, if both profit and stop barriers are touched within the same bar, the stop-loss triggers first.
 - **Advantage**: Embeds execution friction, risk-reward asymmetry, and maximum holding time directly into the label generation. Eliminates trades that cannot overcome transaction costs.
 
 ### 4.2 Leakage-Safe Labeling Rules
 1. **Timestamp Alignment**: Feature vector $\mathbf{x}_t$ is computed strictly using candles up to bar $t$ (bar close timestamp $t_{\text{close}}$).
 2. **Execution Timing**: Any order triggered by prediction $\hat{y}_t$ fills at bar $t+1$ **Open** with adverse slippage (2.0 bps baseline, 3.0 bps stress).
-3. **Purge Duration**: For forward horizon $H$, training labels overlap forward in time. To prevent training label leakage into evaluation folds, the purge buffer must strictly satisfy:
-   $$\text{Purge Buffer} \ge H \times \Delta t_{\text{bar}} + \text{Max Holding Period} = 12\text{h} + 48\text{h} = 60\text{ hours}$$
-   The frozen walk-forward purge of **48 hours** requires capping the maximum forward horizon at $H \le 12\text{ hours}$ and maximum trade holding period at **36 hours**, ensuring $\text{Total Overlap} \le 48\text{ hours}$.
+3. **Purge Duration & Holding Period**: Both the label evaluation horizon and the strategy maximum trade holding duration are locked to $H = 12\text{ bars}$ (`time_expiry_bars = 12`). The required purge duration is:
+   $$\text{Required Purge Buffer} \ge H \times \Delta t_{\text{bar}} = 12 \times 1\text{ hour} = 12\text{ hours}$$
+   The frozen walk-forward purge of **48 hours** provides an explicit $4.0\times$ safety buffer ($48\text{h} \ge 12\text{h}$), guaranteeing zero label leakage across fold boundaries. Open positions at fold boundaries are force-flattened with `BOUNDARY_FLAT`.
 
 ---
 
@@ -271,6 +273,9 @@ To reconcile single-pool fold resets with continuous risk assessment, GATE-1 is 
 2. **Combined Walk-Forward MTM MDD**: $\text{MDD}_{\text{combined}} \le 15.0\%$, calculated across the composite chained equity curve:
    $$E_{\text{composite}}(t) = E_1(t) \cdot \prod_{k=2}^f \left(1 + R_k\right)$$
 Both metrics must be reported side-by-side in all Phase 5 manifests.
+
+> **Formal Classification of Closed-Trade MDD**:
+> Closed-trade MDD is strictly a **diagnostic-only metric** reported for historical parity with Phase 4B. It does NOT constitute a qualification gate. GATE-1 is governed exclusively by the pre-registered dual candle-level Mark-to-Market (MTM) MDD standard.
 
 ---
 
