@@ -47,6 +47,39 @@ class TripleBarrierLabeler:
         self.friction_hurdle_rate = friction_hurdle_bps / 10000.0  # 0.0014
         self.slippage_rate = slippage_bps / 10000.0                # 0.0002
 
+    def compute_barriers(
+        self,
+        open_next: float,
+        close_t: float,
+        atr_t: float
+    ) -> Dict[str, float]:
+        """
+        Computes exact reference entry and barrier prices according to frozen Phase 5A.2 formulas:
+        Long TP:  entry * (1 + 1.5 * ATR14 / close + 0.0014)
+        Long SL:  entry * (1 - 1.0 * ATR14 / close)
+        Short TP: entry * (1 - 1.5 * ATR14 / close - 0.0014)
+        Short SL: entry * (1 + 1.0 * ATR14 / close)
+        """
+        p_entry_long = open_next * (1.0 + self.slippage_rate)
+        p_entry_short = open_next * (1.0 - self.slippage_rate)
+        delta_atr = atr_t / close_t
+
+        long_tp = p_entry_long * (1.0 + self.profit_atr_mult * delta_atr + self.friction_hurdle_rate)
+        long_sl = p_entry_long * (1.0 - self.stop_atr_mult * delta_atr)
+
+        short_tp = p_entry_short * (1.0 - self.profit_atr_mult * delta_atr - self.friction_hurdle_rate)
+        short_sl = p_entry_short * (1.0 + self.stop_atr_mult * delta_atr)
+
+        return {
+            "p_entry_long": p_entry_long,
+            "p_entry_short": p_entry_short,
+            "delta_atr": delta_atr,
+            "long_tp": long_tp,
+            "long_sl": long_sl,
+            "short_tp": short_tp,
+            "short_sl": short_sl,
+        }
+
     def compute_labels(self, df_ohlcv: pd.DataFrame) -> pd.Series:
         """
         Computes the 3-class target label for each bar t.
@@ -81,20 +114,12 @@ class TripleBarrierLabeler:
             if np.isnan(atr_t) or atr_t <= 0.0 or close_t <= 0.0:
                 continue
 
-            delta_atr = atr_t / close_t
-
-            # Entry happens at bar t+1 Open with slippage
             open_next = o[t + 1]
-            p_entry_long = open_next * (1.0 + self.slippage_rate)
-            p_entry_short = open_next * (1.0 - self.slippage_rate)
-
-            # Long Barriers
-            long_tp = p_entry_long * (1.0 + self.profit_atr_mult * delta_atr + self.friction_hurdle_rate)
-            long_sl = p_entry_long * (1.0 - self.stop_atr_mult * delta_atr)
-
-            # Short Barriers
-            short_tp = p_entry_short * (1.0 - self.profit_atr_mult * delta_atr - self.friction_hurdle_rate)
-            short_sl = p_entry_short * (1.0 + self.stop_atr_mult * delta_atr)
+            barriers = self.compute_barriers(open_next=open_next, close_t=close_t, atr_t=atr_t)
+            long_tp = barriers["long_tp"]
+            long_sl = barriers["long_sl"]
+            short_tp = barriers["short_tp"]
+            short_sl = barriers["short_sl"]
 
             # Evaluate forward path over bars t+1, t+2, ..., t+H
             long_outcome: Optional[str] = None  # "TP", "SL", or None

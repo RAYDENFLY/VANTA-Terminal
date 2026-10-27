@@ -24,10 +24,17 @@ class PartitionAwareScaler:
         self.is_fitted = False
         self.feature_names: List[str] = []
 
-    def fit(self, X_train: Union[pd.DataFrame, np.ndarray]) -> "PartitionAwareScaler":
+    def fit(self, X_train: Union[pd.DataFrame, np.ndarray], partition: str = "IS") -> "PartitionAwareScaler":
         """
         Fits the scaler strictly on the In-Sample training slice.
+        Raises ValueError if partition is not In-Sample ("IS").
         """
+        if partition.upper() != "IS":
+            raise ValueError(
+                f"CRITICAL PROTOCOL VIOLATION: PartitionAwareScaler may only be fitted on In-Sample ('IS') partition. "
+                f"Attempted to fit on '{partition}'."
+            )
+
         if isinstance(X_train, pd.DataFrame):
             self.feature_names = list(X_train.columns)
             values = X_train.values
@@ -45,11 +52,15 @@ class PartitionAwareScaler:
         self.is_fitted = True
         return self
 
-    def transform(self, X: Union[pd.DataFrame, np.ndarray]) -> np.ndarray:
+    def transform(self, X: Union[pd.DataFrame, np.ndarray], partition: Optional[str] = None) -> np.ndarray:
         """
         Transforms features using pre-fitted training statistics and clips to [-5.0, 5.0].
         Raises RuntimeError if transform is called before fit.
+        Raises ValueError if partition is Holdout.
         """
+        if partition is not None and partition.upper() in ["HOLDOUT", "HOLD_OUT"]:
+            raise ValueError("CRITICAL PROTOCOL VIOLATION: Cannot transform Holdout data during research phase.")
+
         if not self.is_fitted:
             raise RuntimeError(
                 "CRITICAL PROTOCOL VIOLATION: Attempted to transform data using an unfitted scaler. "
@@ -66,12 +77,12 @@ class PartitionAwareScaler:
         clipped = np.clip(scaled, self.clip_min, self.clip_max)
         return clipped
 
-    def fit_transform(self, X_train: Union[pd.DataFrame, np.ndarray]) -> np.ndarray:
+    def fit_transform(self, X_train: Union[pd.DataFrame, np.ndarray], partition: str = "IS") -> np.ndarray:
         """
         Convenience method permitted ONLY on training partition.
         """
-        self.fit(X_train)
-        return self.transform(X_train)
+        self.fit(X_train, partition=partition)
+        return self.transform(X_train, partition=partition)
 
     def get_params_dict(self) -> Dict[str, Any]:
         """

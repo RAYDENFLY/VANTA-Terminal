@@ -118,3 +118,26 @@ def test_chained_equity_bankruptcy_clamping():
     assert mdd == 100.0
     assert chained_eq[2] == 0.0
     assert chained_eq[3] == 0.0
+
+
+def test_chained_equity_boundary_flatten_cost_inclusion():
+    """
+    Audit F Conformance: Verify that boundary flatten costs incurred when flattening
+    open positions at fold boundaries are reflected in fold_net_pnls and compounded.
+    """
+    # Gross trading PnL was +$1,000, but boundary flatten cost $3.50 was deducted -> net PnL = $996.50
+    f1_curve = [10000.0, 10500.0, 10996.50]
+    f1_net_pnl = 996.50
+
+    f2_curve = [10000.0, 10100.0]
+    f2_net_pnl = 100.0
+
+    chained_eq, dds, mdd = build_chained_equity_curve(
+        fold_curves=[f1_curve, f2_curve],
+        fold_net_pnls=[f1_net_pnl, f2_net_pnl],
+        initial_equity=10000.0
+    )
+
+    expected_f2_start = 10000.0 * (1.0 + 996.50 / 10000.0) # 10,996.50
+    assert pytest.approx(chained_eq[2], abs=1e-4) == expected_f2_start
+    assert pytest.approx(chained_eq[3], abs=1e-4) == expected_f2_start

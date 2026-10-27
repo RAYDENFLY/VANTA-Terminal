@@ -21,6 +21,8 @@ from typing import List, Dict, Any, Optional, Tuple, Union
 import numpy as np
 import pandas as pd
 
+from backend.data.loader import HOLDOUT_CUTOFF_MS, QuarantinedHoldoutViolationError
+
 # The 21 Pre-Registered Feature Column Names in Deterministic Order
 REGISTERED_FEATURE_NAMES: List[str] = [
     # Family 1: Lagged Returns & Multi-Horizon Momentum
@@ -231,14 +233,15 @@ def compute_cross_sectional_features(
     if not symbols:
         return {}
 
-    # Extract aligned RET_4 matrix
-    ret4_dict = {s: pair_features[s]["RET_4"] for s in symbols}
-    ret4_df = pd.DataFrame(ret4_dict)
-    xs_mean_ret4 = ret4_df.mean(axis=1)
-
-    # Extract aligned RET_1 for Beta calculation
-    ret1_dict = {s: pair_features[s]["RET_1"] for s in symbols}
-    ret1_df = pd.DataFrame(ret1_dict)
+    has_timestamps = all("open_time" in pair_features[s].columns for s in symbols)
+    if has_timestamps:
+        ret4_df = pd.DataFrame({s: pair_features[s].set_index("open_time")["RET_4"] for s in symbols})
+        xs_mean_ret4 = ret4_df.mean(axis=1)
+        ret1_df = pd.DataFrame({s: pair_features[s].set_index("open_time")["RET_1"] for s in symbols})
+    else:
+        ret4_df = pd.DataFrame({s: pair_features[s]["RET_4"] for s in symbols})
+        xs_mean_ret4 = ret4_df.mean(axis=1)
+        ret1_df = pd.DataFrame({s: pair_features[s]["RET_1"] for s in symbols})
 
     has_btc = btc_symbol in symbols
     btc_ret1 = ret1_df[btc_symbol] if has_btc else None
@@ -248,15 +251,22 @@ def compute_cross_sectional_features(
     for s in symbols:
         df = pair_features[s]
         # XS_REL_RET_4
-        df["XS_REL_RET_4"] = df["RET_4"] - xs_mean_ret4
+        if has_timestamps:
+            df["XS_REL_RET_4"] = (df["RET_4"] - df["open_time"].map(xs_mean_ret4)).values
+        else:
+            df["XS_REL_RET_4"] = df["RET_4"] - xs_mean_ret4
 
         # XS_BETA_24
         if s == btc_symbol:
             df["XS_BETA_24"] = np.where(df["RET_1"].notna(), 1.0, np.nan)
         elif has_btc:
-            pair_ret1 = df["RET_1"]
+            pair_ret1 = df.set_index("open_time")["RET_1"] if has_timestamps else df["RET_1"]
             cov24 = pair_ret1.rolling(window=24, min_periods=24).cov(btc_ret1)
-            df["XS_BETA_24"] = cov24 / (btc_var24 + EPSILON)
+            beta24 = cov24 / (btc_var24 + EPSILON)
+            if has_timestamps:
+                df["XS_BETA_24"] = df["open_time"].map(beta24).values
+            else:
+                df["XS_BETA_24"] = beta24.values
         else:
             df["XS_BETA_24"] = 1.0
 
@@ -296,7 +306,19 @@ class FeaturePipeline:
             else:
                 raise TypeError(f"Unsupported data format for symbol {symbol}: {type(data)}")
 
-            df = df.sort_values("open_time").reset_index(drop=True)
+            if "open_time" in df.columns and len(df) > 0:
+                # Active holdout quarantine interception
+                max_time = df["open_time"].max()
+                if max_time >= HOLDOUT_CUTOFF_MS:
+                    raise QuarantinedHoldoutViolationError(
+                        f"CRITICAL PROTOCOL VIOLATION: Candle for {symbol} has open_time={max_time} "
+                        f"which reaches or exceeds the holdout cutoff {HOLDOUT_CUTOFF_MS} (2026-04-26T00:00:00Z)."
+                    )
+                # Deduplicate and sort
+                df = df.drop_duplicates(subset=["open_time"], keep="last").sort_values("open_time").reset_index(drop=True)
+            else:
+                df = df.reset_index(drop=True)
+
             pair_dfs[symbol] = df
 
         # 2. Compute 19 single-pair features per symbol

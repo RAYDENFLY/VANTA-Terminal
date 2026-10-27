@@ -85,18 +85,23 @@ The pipeline implements the exact 21 pre-registered features across the 7 featur
    - `DIST_LOW_24`: $\frac{C_t - L_{24}^*}{C_t}$
 
 7. **Family 7 — Cross-Sectional Relative Metrics** (2 features):
-   - `XS_REL_RET_4`: $R_{i, t}^{(4)} - \text{Median}_{j \in \mathcal{U}}(R_{j, t}^{(4)})$
-   - `XS_BETA_24`: Rolling 24-bar OLS slope $\beta_i = \frac{\text{Cov}(R_i, R_M)}{\text{Var}(R_M)}$ against equal-weighted universe market return $R_M$
+   - `XS_REL_RET_4`: $R_{i, t}^{(4)} - \overline{\text{RET\_4}}_{\mathcal{U}, t}$ (relative to cross-sectional universe mean)
+   - `XS_BETA_24`: Rolling 24-bar OLS slope $\beta_i = \frac{\text{Cov}(R_i, R_M)}{\text{Var}(R_M)}$ against BTC benchmark return $R_M$
 
 ### 3.2 Triple-Barrier Labeling (`backend/ml/labels.py`)
 
 The `TripleBarrierLabeler` implements the exact pre-registered mechanics:
 - **Decision Timestamp**: Signal generated at candle $t$ close ($C_t$).
-- **Execution Bar**: Entry at next-bar open ($O_{t+1}$) with adverse 3.0 bps slippage:
-  - Long entry: $P_{\text{entry}} = O_{t+1} \cdot (1 + 0.0003)$
-  - Short entry: $P_{\text{entry}} = O_{t+1} \cdot (1 - 0.0003)$
-- **Barrier Multipliers**: Symmetrical $2.0 \times \text{ATR}_{14}(t)$ for upper (TP) and lower (SL) barriers.
-- **Transaction Cost Hurdle**: $14.0\text{ bps}$ ($2 \times 5.5\text{ bps fee} + 2 \times 1.5\text{ bps slippage}$). At horizon expiry ($H=12$ bars), a non-touch trade is labeled $+1$ or $-1$ only if the net return exceeds $+14.0\text{ bps}$; otherwise labeled $0$ (Neutral).
+- **Execution Bar**: Entry at next-bar open ($O_{t+1}$) with adverse 2.0 bps slippage ($s = 0.0002$):
+  - Long entry: $P_{\text{entry}} = O_{t+1} \cdot (1 + 0.0002)$
+  - Short entry: $P_{\text{entry}} = O_{t+1} \cdot (1 - 0.0002)$
+- **Barrier Multipliers**:
+  - Long TP: $P_{\text{entry, Long}} \cdot (1 + 1.5 \cdot \delta_{\text{ATR}} + 0.0014)$
+  - Long SL: $P_{\text{entry, Long}} \cdot (1 - 1.0 \cdot \delta_{\text{ATR}})$
+  - Short TP: $P_{\text{entry, Short}} \cdot (1 - 1.5 \cdot \delta_{\text{ATR}} - 0.0014)$
+  - Short SL: $P_{\text{entry, Short}} \cdot (1 + 1.0 \cdot \delta_{\text{ATR}})$
+  where $\delta_{\text{ATR}} = \text{ATR}_{14}(t) / C_t$.
+- **Transaction Cost Hurdle**: $14.0\text{ bps}$ ($2 \times (5.0\text{ bps fee} + 2.0\text{ bps slippage})$). At horizon expiry ($H=12$ bars), if neither barrier was touched, the label assigned is strictly $0$ (`NEUTRAL_EXPIRY`).
 - **Collision Resolution (`CONSERVATIVE_SL_FIRST`)**: If both TP and SL price thresholds are spanned within the same candle's $[L, H]$ range, the stop-loss is deterministically assumed to trigger first, yielding a loss label.
 - **Gap-Through Handling**: If candle opens beyond the stop barrier, exit price is evaluated at the candle open ($O$), capturing adverse gap slippage.
 
@@ -163,14 +168,14 @@ Features relying on recursive filters (Wilder's ATR and EMA-50) require adequate
 | File Path | Purpose | SHA-256 Checksum |
 | :--- | :--- | :--- |
 | `backend/ml/__init__.py` | ML Module Exports | `de4f2f2d874fe2784137d24d18adeda7b74da7ab58db2df80c4aad485f88d18c` |
-| `backend/ml/features.py` | 21 Pre-Registered Feature Pipeline | `3ab208b8028683e04118dafd2ae018893fef8625fbace9f8fe7206a02a8d5243` |
-| `backend/ml/labels.py` | Triple-Barrier Label Generator | `645d271a987e1a22094b25cbaeead60ed8761ed1414a959a0ba48a58d5615952` |
-| `backend/ml/scaling.py` | Partition-Aware Robust Scaler | `406fe6b5b12732c78616a69a778099158717c07255fe919c66299e58d1871eee` |
+| `backend/ml/features.py` | 21 Pre-Registered Feature Pipeline | `c17dc3e941f020a4bb719f00fcef90f4f04175a04c0b02bbc5cf7894bdf2254b` |
+| `backend/ml/labels.py` | Triple-Barrier Label Generator | `c683b5562c9878bdfb3fc3e7e3a0409dc7548a8a98c4e10e32d069cfdd051337` |
+| `backend/ml/scaling.py` | Partition-Aware Robust Scaler | `88075851d281fe3d0a094954b637756e65a7d4281f64a8cc45d4006ce73ec3d5` |
 | `backend/ml/chained_equity.py` | Continuous Compounding & MTM MDD | `8142e44e0d276ab04ab1e05027396f3db34fad1ed69d80d6511fb174cc02d372` |
 | `tests/test_feature_pipeline.py` | Feature Pipeline Tests | `460ade05b1221893b2896078984e8d97aad182b747ec5e08693fd5d0b3cde0f5` |
-| `tests/test_leakage_and_adversarial.py` | Adversarial Leakage & Guard Tests | `565dc1f82f7bbba231ff66cfb96e5faf19dbe053f8a83603d0058bcb8b7e98d3` |
-| `tests/test_triple_barrier_labels.py` | Triple-Barrier Semantics Tests | `5604033e7616284f72989265d031124eb76f096b5c3fb1b0a3b02200d9f715ae` |
-| `tests/test_chained_equity_acceptance.py` | Multi-Fold Acceptance Tests | `6d243ef38527e8153d72842126e9c2f7a2ea7ab9a66e8e9747561c71c94b296c` |
+| `tests/test_leakage_and_adversarial.py` | Adversarial Leakage & Guard Tests | `e089e0602b9337490731a74c8cfbd6505f80c82a8065fb5a9e88cf18bf9ecf42` |
+| `tests/test_triple_barrier_labels.py` | Triple-Barrier Semantics Tests | `7de1ad7489e37f2a36f5742e2b98d2ca4650094ebb0761ac1083c4d17dcf22bc` |
+| `tests/test_chained_equity_acceptance.py` | Multi-Fold Acceptance Tests | `21cc9f51390a72b1ac859787490fbecfe93eeb63bf55f2a74505e6519900fd06` |
 
 ---
 

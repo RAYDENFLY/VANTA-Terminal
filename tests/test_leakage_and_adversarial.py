@@ -161,6 +161,14 @@ def test_partition_aware_scaler_isolation():
     assert scaled_oos[2, 0] == 5.0
     assert scaled_oos[2, 1] == 5.0
 
+    # Fitting on OOS partition must raise ValueError
+    with pytest.raises(ValueError, match="In-Sample"):
+        scaler.fit(X_train, partition="OOS")
+
+    # Transforming holdout data must raise ValueError
+    with pytest.raises(ValueError, match="Holdout"):
+        scaler.transform(X_oos, partition="HOLDOUT")
+
 
 def test_holdout_quarantine_guard_interception():
     """Verify that synthetic candles at or after HOLDOUT_CUTOFF_MS are intercepted."""
@@ -180,3 +188,26 @@ def test_holdout_quarantine_guard_interception():
     # Filter with raise_on_holdout_access=True must raise QuarantinedHoldoutViolationError
     with pytest.raises(QuarantinedHoldoutViolationError):
         filter_candles_holdout_guard(synthetic_candles, raise_on_holdout_access=True)
+
+    # FeaturePipeline must also directly raise QuarantinedHoldoutViolationError
+    pipeline = FeaturePipeline()
+    with pytest.raises(QuarantinedHoldoutViolationError):
+        pipeline.process_universe({"BTCUSDT": synthetic_candles})
+
+
+def test_feature_pipeline_timestamp_deduplication():
+    """Verify that duplicate timestamps in input OHLCV are deterministically deduplicated."""
+    candles = [
+        [1700000000000, 100.0, 101.0, 99.0, 100.0, 500.0, 1700003599999],
+        [1700003600000, 100.0, 101.0, 99.0, 100.0, 500.0, 1700007199999],
+        [1700003600000, 100.5, 101.5, 99.5, 100.5, 600.0, 1700007199999], # Duplicate timestamp!
+        [1700007200000, 101.0, 102.0, 100.0, 101.0, 500.0, 1700010799999],
+    ]
+    pipeline = FeaturePipeline()
+    res = pipeline.process_universe({"BTCUSDT": candles})
+    df_btc = res["BTCUSDT"]
+
+    # 4 rows input with 1 duplicate -> exactly 3 unique timestamps output
+    assert len(df_btc) == 3
+    assert df_btc["open_time"].is_monotonic_increasing
+    assert len(df_btc["open_time"].unique()) == 3
