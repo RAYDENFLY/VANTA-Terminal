@@ -1,0 +1,131 @@
+{
+  "manifest_version": "1.0.0",
+  "phase": "Phase 4B.4 Canonical Portfolio Engine Implementation",
+  "timestamp_utc": "2026-10-27T14:15:00Z",
+  "exit_status": "IMPLEMENTATION_PASS",
+  "certified_outcome": "NO_QUALIFIED_STRATEGY (UNALTERED)",
+  "certified_baseline": "Strategy B (Donchian Breakout, 1H) UNQUALIFIED_BASELINE",
+  "quarantine_guard_status": "ENFORCED (Zero candles >= 1777161600000 / 2026-04-26T00:00:00Z accessed)",
+  "port_8000_status": "UNTOUCHED (Preserved external process on 127.0.0.1:8000)",
+  "disk_free_gb": 51.05,
+  "source_checksums": {
+    "portfolio_engine_src": {
+      "path": "D:\\vanta-terminal\\backend\\backtest\\portfolio_engine.py",
+      "sha256": "ec40abe7943fea11d6e13f4c44d19faebebffcc689e3fc9fe2b0f51d8bf732dd"
+    },
+    "event_queue_src": {
+      "path": "D:\\vanta-terminal\\backend\\backtest\\event_queue.py",
+      "sha256": "5e86829b28ce5fe50b77b353476be34fc63e511e69b3e38116ec0b43da626bdc"
+    },
+    "walk_forward_v2_src": {
+      "path": "D:\\vanta-terminal\\backend\\strategy\\walk_forward_v2.py",
+      "sha256": "1854ada53b233fdf849a57d478d14b5184a8facef795f3a06cae6b534669c967"
+    },
+    "test_suite_v2": {
+      "path": "D:\\vanta-terminal\\tests\\test_portfolio_engine_v2.py",
+      "sha256": "f4cdcaa8735b3d9fe0d7c64ecf238321c40d9f1a98316af6ae6f3fbb072d03e7"
+    },
+    "portfolio_spec_doc": {
+      "path": "D:\\vanta-terminal\\docs\\PHASE_4B3_PORTFOLIO_ACCOUNTING_SPEC.md",
+      "sha256": "ec5d7e74c9d9165ab2e8d20b3016b89aa79bf1da7b9f3f98e7aa5c328c9ee4d5"
+    }
+  },
+  "test_suite_execution": {
+    "total_tests": 12,
+    "passed_tests": 12,
+    "failed_tests": 0,
+    "duration_seconds": 1.434,
+    "test_cases": [
+      {
+        "id": "TEST-01",
+        "name": "Shared Capital Across Multiple Symbols",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-02",
+        "name": "Chronological Interleaving of Pair Events",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-03",
+        "name": "Deterministic Ordering of Equal-Timestamp Events",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-04",
+        "name": "Simultaneous Exits Free Collateral for Entries",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-05",
+        "name": "Capital Rejection on Insufficient Collateral",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-06",
+        "name": "Open-Position Mark-to-Market Drawdown",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-07",
+        "name": "Gap-Through-Stop & Same-Candle SL/TP Ambiguity",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-08",
+        "name": "Fees and Slippage Reconciliation",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-09",
+        "name": "Bankruptcy and Zero-Equity Behavior",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-10",
+        "name": "Fold Resets and Boundary Flattening",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-11",
+        "name": "Missing Funding Data Exception Guard",
+        "status": "PASSED"
+      },
+      {
+        "id": "TEST-12",
+        "name": "Deterministic Replay & Identical Checksum",
+        "status": "PASSED"
+      }
+    ]
+  },
+  "source_files_changed": [
+    {
+      "path": "backend/backtest/portfolio_engine.py",
+      "action": "CREATED (ISOLATED)",
+      "purpose": "Implements CanonicalPortfolioEngine with single shared $10k capital pool, 1.0x gross leverage cap, capital rationing, MTM equity and drawdown tracking, intrabar barriers with CONSERVATIVE_SL_FIRST, and bankruptcy clamping."
+    },
+    {
+      "path": "backend/backtest/event_queue.py",
+      "action": "CREATED (ISOLATED)",
+      "purpose": "Implements MultiStreamEventQueue to synchronize multi-pair discrete candle streams into chronological BarFrames without pair concatenation, providing deterministic tie-breaking."
+    },
+    {
+      "path": "backend/strategy/walk_forward_v2.py",
+      "action": "CREATED (ISOLATED)",
+      "purpose": "Integrates CanonicalPortfolioEngine with 3-fold Walk-Forward protocol, enforcing 48h purge/embargo, independent $10k per-fold resets, boundary flattening, and per-fold MTM MDD reporting."
+    },
+    {
+      "path": "tests/test_portfolio_engine_v2.py",
+      "action": "CREATED",
+      "purpose": "Unit and integration test suite validating all 12 canonical portfolio engine invariants."
+    }
+  ],
+  "non_negotiable_invariants_verified": {
+    "legacy_engines_preserved": true,
+    "historical_manifests_preserved": true,
+    "phase_4b_results_preserved": true,
+    "frozen_qualification_thresholds_preserved": true,
+    "zero_ml_training_executed": true,
+    "zero_orders_submitted_to_exchange": true
+  }
+}
