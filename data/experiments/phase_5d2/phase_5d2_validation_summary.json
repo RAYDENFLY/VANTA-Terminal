@@ -1,0 +1,192 @@
+{
+  "timestamp_utc": "2026-10-27T11:11:12.316163+00:00",
+  "holdout_cutoff_ms": 1777161600000,
+  "holdout_quarantine_verified": true,
+  "qualified_pairs": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "BNBUSDT",
+    "XRPUSDT",
+    "ADAUSDT",
+    "AVAXUSDT",
+    "LINKUSDT",
+    "DOGEUSDT",
+    "LTCUSDT"
+  ],
+  "feature_count": 21,
+  "folds": {
+    "fold_1": {
+      "fold_id": 1,
+      "config": "B-09",
+      "is_candidates_before_purge": 1830,
+      "is_purged_boundary_overlap": 0,
+      "is_candidates_retained": 1830,
+      "is_class_1_positive": 437,
+      "is_class_0_negative": 1393,
+      "is_unresolved_labels": 0,
+      "is_prevalence_pct": 23.88,
+      "is_symbol_counts": {
+        "LINKUSDT": 164,
+        "ETHUSDT": 186,
+        "ADAUSDT": 169,
+        "LTCUSDT": 169,
+        "BNBUSDT": 203,
+        "DOGEUSDT": 185,
+        "XRPUSDT": 183,
+        "SOLUSDT": 205,
+        "BTCUSDT": 184,
+        "AVAXUSDT": 182
+      },
+      "is_direction_counts": {
+        "LONG": 956,
+        "SHORT": 874
+      },
+      "oos_candidates_count": 954,
+      "oos_class_1_positive": 224,
+      "oos_class_0_negative": 730,
+      "oos_unresolved_labels": 0,
+      "oos_prevalence_pct": 23.48,
+      "oos_symbol_counts": {
+        "ETHUSDT": 97,
+        "LINKUSDT": 104,
+        "DOGEUSDT": 103,
+        "XRPUSDT": 94,
+        "ADAUSDT": 66,
+        "LTCUSDT": 93,
+        "BTCUSDT": 103,
+        "SOLUSDT": 96,
+        "BNBUSDT": 110,
+        "AVAXUSDT": 88
+      },
+      "oos_direction_counts": {
+        "LONG": 478,
+        "SHORT": 476
+      },
+      "partition_collision_count": 0,
+      "feature_leakage_violations": 0,
+      "holdout_violations": 0,
+      "is_artifact": "data\\experiments\\phase_5d2\\fold_1_is_candidates.json",
+      "oos_artifact": "data\\experiments\\phase_5d2\\fold_1_oos_candidates.json",
+      "is_artifact_sha256": "0fe2ed16b74080b67c93d265d118bc7fcedf66c568388f1a2e8eb0132c64759c",
+      "oos_artifact_sha256": "a9a290203213c2fa09676c2cbb15c3648cfb92ba68c313203ae831935dac30eb"
+    },
+    "fold_2": {
+      "fold_id": 2,
+      "config": "B-09",
+      "is_candidates_before_purge": 1862,
+      "is_purged_boundary_overlap": 0,
+      "is_candidates_retained": 1862,
+      "is_class_1_positive": 449,
+      "is_class_0_negative": 1413,
+      "is_unresolved_labels": 0,
+      "is_prevalence_pct": 24.11,
+      "is_symbol_counts": {
+        "BNBUSDT": 220,
+        "DOGEUSDT": 194,
+        "LTCUSDT": 181,
+        "XRPUSDT": 187,
+        "ADAUSDT": 142,
+        "SOLUSDT": 203,
+        "AVAXUSDT": 176,
+        "LINKUSDT": 173,
+        "ETHUSDT": 183,
+        "BTCUSDT": 203
+      },
+      "is_direction_counts": {
+        "LONG": 915,
+        "SHORT": 947
+      },
+      "oos_candidates_count": 859,
+      "oos_class_1_positive": 216,
+      "oos_class_0_negative": 643,
+      "oos_unresolved_labels": 0,
+      "oos_prevalence_pct": 25.15,
+      "oos_symbol_counts": {
+        "DOGEUSDT": 65,
+        "SOLUSDT": 68,
+        "BNBUSDT": 73,
+        "ADAUSDT": 102,
+        "AVAXUSDT": 96,
+        "XRPUSDT": 87,
+        "LTCUSDT": 97,
+        "ETHUSDT": 75,
+        "LINKUSDT": 121,
+        "BTCUSDT": 75
+      },
+      "oos_direction_counts": {
+        "LONG": 452,
+        "SHORT": 407
+      },
+      "partition_collision_count": 0,
+      "feature_leakage_violations": 0,
+      "holdout_violations": 0,
+      "is_artifact": "data\\experiments\\phase_5d2\\fold_2_is_candidates.json",
+      "oos_artifact": "data\\experiments\\phase_5d2\\fold_2_oos_candidates.json",
+      "is_artifact_sha256": "b9ff5a7a0627b00cd61f5364bba2e1341089b09e72a7f435fe95534e82dec918",
+      "oos_artifact_sha256": "3eb2235db44208928ee81e00140e9f0d584f33c4f5c9097e924785c325abe260"
+    },
+    "fold_3": {
+      "fold_id": 3,
+      "config": "B-05",
+      "is_candidates_before_purge": 2099,
+      "is_purged_boundary_overlap": 0,
+      "is_candidates_retained": 2099,
+      "is_class_1_positive": 517,
+      "is_class_0_negative": 1582,
+      "is_unresolved_labels": 0,
+      "is_prevalence_pct": 24.63,
+      "is_symbol_counts": {
+        "LTCUSDT": 212,
+        "XRPUSDT": 203,
+        "ADAUSDT": 189,
+        "BNBUSDT": 217,
+        "ETHUSDT": 207,
+        "DOGEUSDT": 209,
+        "AVAXUSDT": 209,
+        "SOLUSDT": 194,
+        "LINKUSDT": 248,
+        "BTCUSDT": 211
+      },
+      "is_direction_counts": {
+        "LONG": 1077,
+        "SHORT": 1022
+      },
+      "oos_candidates_count": 1038,
+      "oos_class_1_positive": 288,
+      "oos_class_0_negative": 750,
+      "oos_unresolved_labels": 0,
+      "oos_prevalence_pct": 27.75,
+      "oos_symbol_counts": {
+        "AVAXUSDT": 106,
+        "LINKUSDT": 95,
+        "LTCUSDT": 96,
+        "BNBUSDT": 107,
+        "XRPUSDT": 113,
+        "SOLUSDT": 98,
+        "DOGEUSDT": 106,
+        "ADAUSDT": 105,
+        "ETHUSDT": 103,
+        "BTCUSDT": 109
+      },
+      "oos_direction_counts": {
+        "LONG": 456,
+        "SHORT": 582
+      },
+      "partition_collision_count": 0,
+      "feature_leakage_violations": 0,
+      "holdout_violations": 0,
+      "is_artifact": "data\\experiments\\phase_5d2\\fold_3_is_candidates.json",
+      "oos_artifact": "data\\experiments\\phase_5d2\\fold_3_oos_candidates.json",
+      "is_artifact_sha256": "89f8dafdd8e93a76bef04f3943aa97811f6193353ab136d1f162beccf7f72bd3",
+      "oos_artifact_sha256": "d18da595c6f2232859826f3d268e16cfd333f810f98d5ca7471fb480fa2d7117"
+    }
+  },
+  "totals": {
+    "total_is_candidates_retained": 5791,
+    "total_is_purged_boundary": 0,
+    "total_oos_candidates": 2851,
+    "benchmark_0_historical_trades": 2851,
+    "discrepancy": 0
+  }
+}

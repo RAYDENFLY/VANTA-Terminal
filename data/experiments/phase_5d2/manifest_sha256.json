@@ -1,0 +1,9 @@
+{
+  "data/experiments/phase_5d2/fold_1_is_candidates.json": "0fe2ed16b74080b67c93d265d118bc7fcedf66c568388f1a2e8eb0132c64759c",
+  "data/experiments/phase_5d2/fold_1_oos_candidates.json": "a9a290203213c2fa09676c2cbb15c3648cfb92ba68c313203ae831935dac30eb",
+  "data/experiments/phase_5d2/fold_2_is_candidates.json": "b9ff5a7a0627b00cd61f5364bba2e1341089b09e72a7f435fe95534e82dec918",
+  "data/experiments/phase_5d2/fold_2_oos_candidates.json": "3eb2235db44208928ee81e00140e9f0d584f33c4f5c9097e924785c325abe260",
+  "data/experiments/phase_5d2/fold_3_is_candidates.json": "89f8dafdd8e93a76bef04f3943aa97811f6193353ab136d1f162beccf7f72bd3",
+  "data/experiments/phase_5d2/fold_3_oos_candidates.json": "d18da595c6f2232859826f3d268e16cfd333f810f98d5ca7471fb480fa2d7117",
+  "data/experiments/phase_5d2/phase_5d2_validation_summary.json": "2bd01060d78618f6b024d424940e4310b84e5bcaccd3dca8d26eb6b1749405be"
+}
