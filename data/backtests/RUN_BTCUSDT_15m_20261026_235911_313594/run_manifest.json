@@ -1,0 +1,14 @@
+{
+  "run_id": "RUN_BTCUSDT_15m_20261026_235911_313594",
+  "config_hash": "0b9d909b246dad4e0e53ef40acea9a659419f6dd978b180a7bb88ddcd408bedb",
+  "dataset_id": "SYNTHETIC_DATASET",
+  "dataset_sha256": "N/A_IN_MEMORY",
+  "status": "SUCCESS",
+  "total_trades": 1,
+  "final_equity": 9994.82,
+  "net_return_pct": -0.0518,
+  "max_drawdown_pct": 0.0518,
+  "result_file_sha256": "576608edd276c3facf43a581c1b6ffc40356bdfb607aecf42884c637155aa7c0",
+  "created_at_utc": "2026-10-26T23:59:11.724878+00:00",
+  "is_synthetic_test": true
+}

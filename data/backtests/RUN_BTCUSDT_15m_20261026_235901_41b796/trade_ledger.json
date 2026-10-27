@@ -1,0 +1,28 @@
+[
+  {
+    "trade_id": 1,
+    "run_id": "RUN_BTCUSDT_15m_20261026_235901_41b796",
+    "symbol": "BTCUSDT",
+    "side": "LONG",
+    "entry_time_ms": 1698279300000,
+    "exit_time_ms": 1698282000000,
+    "entry_price": 34532.9052,
+    "exit_price": 34693.06,
+    "quantity": 0.01,
+    "notional": 345.33,
+    "gross_pnl": 1.6015,
+    "entry_fee": 0.1727,
+    "exit_fee": 0.1735,
+    "total_fee": 0.3462,
+    "slippage_cost": 0.1385,
+    "funding_payment": 0.0,
+    "net_pnl": 1.1168,
+    "return_pct": 0.3234,
+    "holding_duration_bars": 3,
+    "holding_duration_ms": 2700000,
+    "exit_reason": "SIGNAL_EXIT",
+    "is_ambiguous": false,
+    "equity_before": 10000.0,
+    "equity_after": 10001.12
+  }
+]
