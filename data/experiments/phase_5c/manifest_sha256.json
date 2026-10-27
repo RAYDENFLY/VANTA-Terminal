@@ -1,0 +1,13 @@
+{
+  "backend/ml/walk_forward.py": "b3b91a51ebe333851181b2f3ca33ad09dd1209e03b9d9628ab2d8b29f95ed3b0",
+  "backend/ml/dataset_builder.py": "8b068bfdbf7d5df0e75db442a983ce84a0e33523f14095d6530c73e9592ebb09",
+  "backend/ml/models.py": "1941d9001593e155671d154c02e163bab853fefe8fabe68698e230b6be279023",
+  "backend/ml/ml_strategy.py": "53acf3679749878cf47775a1c6840c0437cfea11dd0d0884dee3df017ed2382f",
+  "backend/ml/inference.py": "4f6023170dc0ad63524e8b338cae408c456df0371805bd5fc2285e66e924b74a",
+  "backend/ml/evaluation_driver.py": "4ecb3dd3e5b45dffdff9d9250a9ab955f305c05c124d1f06c30de82bc588dac7",
+  "data/experiments/phase_5c/experiment_manifest.json": "56b622423ae1ddd51bf120fa3b0bcea93ff0fec9e26ac20a2bb8ee1f07d76daf",
+  "data/experiments/phase_5c/MODEL-1-LOGIT_RESULTS.json": "412c6bbe9fe26966dfe6b07e438f88b5774282d74595c1d3989743413c6a0b4d",
+  "data/experiments/phase_5c/MODEL-2-LGBM_RESULTS.json": "ba650546a4d901cc666f1972ab03e71edef4aa3eae88ca27fd3d4ab873036d54",
+  "data/experiments/phase_5c/MODEL-3-XGB_RESULTS.json": "fb68f9c3575125f7e684ccf82a1910214c816b25e0fea81e6ad46ba8508b2060",
+  "docs/PHASE_5C1_CONTROLLED_ML_EVALUATION_REPORT.md": "f627fa75d5f652f5ec4df7ba4e73c2e72daebe881ee24be528dda1bc3fdcb4f8"
+}

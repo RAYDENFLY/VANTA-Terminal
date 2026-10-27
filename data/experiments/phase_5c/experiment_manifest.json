@@ -1,0 +1,67 @@
+{
+  "experiment_id": "EXP-PHASE-5C1-ML-WALKFORWARD",
+  "execution_timestamp_utc": "2026-10-27T09:11:28Z",
+  "total_execution_duration_s": 270.35,
+  "global_outcome": "PHASE_5C1_NO_QUALIFIED_MODEL",
+  "qualified_models_count": 0,
+  "benchmark_0_status": "STRAT-B-01 (Donchian 1H) \u2014 UNQUALIFIED_BASELINE",
+  "benchmark_0_summary": {
+    "net_pnl": 243.43,
+    "profit_factor": 1.007,
+    "mtm_mdd_pct": 20.67,
+    "trades": 2851
+  },
+  "candidates": {
+    "MODEL-1-LOGIT": {
+      "qualification_status": "UNQUALIFIED",
+      "all_gates_passed": false,
+      "net_pnl": -18685.47,
+      "profit_factor": 0.83,
+      "expectancy_bps": -7.45,
+      "chained_mtm_mdd_pct": 94.921,
+      "total_trades": 25076,
+      "bootstrap_delta_pnl_ci": {
+        "mean": -18783.12,
+        "median": -18817.09,
+        "std": 4740.14,
+        "ci_95_lower": -28464.33,
+        "ci_95_upper": -9472.31
+      },
+      "bootstrap_statistically_significant": false
+    },
+    "MODEL-2-LGBM": {
+      "qualification_status": "UNQUALIFIED",
+      "all_gates_passed": false,
+      "net_pnl": -18452.94,
+      "profit_factor": 0.84,
+      "expectancy_bps": -7.13,
+      "chained_mtm_mdd_pct": 94.6308,
+      "total_trades": 25896,
+      "bootstrap_delta_pnl_ci": {
+        "mean": -18705.99,
+        "median": -18608.74,
+        "std": 4216.58,
+        "ci_95_lower": -27443.51,
+        "ci_95_upper": -10712.79
+      },
+      "bootstrap_statistically_significant": false
+    },
+    "MODEL-3-XGB": {
+      "qualification_status": "UNQUALIFIED",
+      "all_gates_passed": false,
+      "net_pnl": -18937.14,
+      "profit_factor": 0.834,
+      "expectancy_bps": -7.39,
+      "chained_mtm_mdd_pct": 95.0996,
+      "total_trades": 25639,
+      "bootstrap_delta_pnl_ci": {
+        "mean": -19173.66,
+        "median": -19156.71,
+        "std": 4182.48,
+        "ci_95_lower": -28069.07,
+        "ci_95_upper": -11062.11
+      },
+      "bootstrap_statistically_significant": false
+    }
+  }
+}
