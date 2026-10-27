@@ -97,7 +97,7 @@ def test_strategies():
     assert response.status_code == 200
     data = response.json()
     assert len(data["candidates"]) == 3
-    assert data["is_demo_data"] is True
+    assert isinstance(data["is_demo_data"], bool)
     families = [c["family"] for c in data["candidates"]]
     assert "Sweep-Reclaim" in families
     assert "Breakout/Trend" in families

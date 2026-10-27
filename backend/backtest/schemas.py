@@ -42,6 +42,7 @@ class ExitReason(str, Enum):
     SIGNAL_EXIT = "SIGNAL_EXIT"
     MARGIN_CALL = "MARGIN_CALL"
     MANUAL_CLOSE = "MANUAL_CLOSE"
+    BOUNDARY_FLAT = "BOUNDARY_FLAT"
 
 
 class SizingType(str, Enum):

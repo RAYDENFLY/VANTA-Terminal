@@ -1,0 +1,520 @@
+{
+  "strategy_id": "STRAT-C-01",
+  "strategy_name": "Bollinger Bands + RSI Mean Reversion",
+  "timeframe": "15m",
+  "cost_model": "TAKER_5BPS_SLIPPAGE_2BPS (FUNDING_EXCLUDED_BASELINE)",
+  "benchmark_status": "NO_QUALIFIED_STRATEGY",
+  "certified_baseline": false,
+  "total_oos_trades": 3362,
+  "total_net_pnl": -6946.99,
+  "total_fees_paid": 3166.15,
+  "total_slippage_paid": 1228.47,
+  "max_drawdown_pct": 69.55,
+  "folds": [
+    {
+      "fold_id": 1,
+      "selected_config": "C-10",
+      "oos_trades_count": 1402,
+      "oos_net_pnl": -3379.64,
+      "is_profitable": false
+    },
+    {
+      "fold_id": 2,
+      "selected_config": "C-10",
+      "oos_trades_count": 1155,
+      "oos_net_pnl": -2218.73,
+      "is_profitable": false
+    },
+    {
+      "fold_id": 3,
+      "selected_config": "C-10",
+      "oos_trades_count": 805,
+      "oos_net_pnl": -1348.61,
+      "is_profitable": false
+    }
+  ],
+  "selection_audit_trail": [
+    {
+      "fold_id": 1,
+      "selected_config": "C-10",
+      "selected_score": -999.0,
+      "grid_evaluations": [
+        {
+          "config_id": "C-01",
+          "trades": 6463,
+          "net_profit": -8290.86,
+          "profit_factor": 0.7,
+          "sharpe": -10.6,
+          "max_drawdown_pct": 82.97,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-02",
+          "trades": 6345,
+          "net_profit": -8872.7,
+          "profit_factor": 0.66,
+          "sharpe": -11.99,
+          "max_drawdown_pct": 88.75,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-03",
+          "trades": 6329,
+          "net_profit": -8275.7,
+          "profit_factor": 0.7,
+          "sharpe": -10.5,
+          "max_drawdown_pct": 82.85,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-04",
+          "trades": 6894,
+          "net_profit": -8696.07,
+          "profit_factor": 0.67,
+          "sharpe": -11.94,
+          "max_drawdown_pct": 87.14,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-05",
+          "trades": 6098,
+          "net_profit": -8221.04,
+          "profit_factor": 0.7,
+          "sharpe": -10.27,
+          "max_drawdown_pct": 82.3,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-06",
+          "trades": 2957,
+          "net_profit": -4203.14,
+          "profit_factor": 0.69,
+          "sharpe": -7.11,
+          "max_drawdown_pct": 42.03,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-07",
+          "trades": 11816,
+          "net_profit": -15228.36,
+          "profit_factor": 0.66,
+          "sharpe": -16.45,
+          "max_drawdown_pct": 152.31,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-08",
+          "trades": 3173,
+          "net_profit": -4536.84,
+          "profit_factor": 0.65,
+          "sharpe": -8.35,
+          "max_drawdown_pct": 45.38,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-09",
+          "trades": 11485,
+          "net_profit": -13668.19,
+          "profit_factor": 0.66,
+          "sharpe": -16.06,
+          "max_drawdown_pct": 136.96,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-10",
+          "trades": 2442,
+          "net_profit": -3234.98,
+          "profit_factor": 0.71,
+          "sharpe": -5.95,
+          "max_drawdown_pct": 32.36,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-11",
+          "trades": 10646,
+          "net_profit": -13636.37,
+          "profit_factor": 0.69,
+          "sharpe": -14.21,
+          "max_drawdown_pct": 136.43,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-12",
+          "trades": 4806,
+          "net_profit": -5977.92,
+          "profit_factor": 0.72,
+          "sharpe": -8.37,
+          "max_drawdown_pct": 59.8,
+          "score": -999.0
+        }
+      ]
+    },
+    {
+      "fold_id": 2,
+      "selected_config": "C-10",
+      "selected_score": -999.0,
+      "grid_evaluations": [
+        {
+          "config_id": "C-01",
+          "trades": 6503,
+          "net_profit": -11518.19,
+          "profit_factor": 0.61,
+          "sharpe": -14.61,
+          "max_drawdown_pct": 115.35,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-02",
+          "trades": 6524,
+          "net_profit": -11184.49,
+          "profit_factor": 0.61,
+          "sharpe": -14.56,
+          "max_drawdown_pct": 112.08,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-03",
+          "trades": 6308,
+          "net_profit": -10503.13,
+          "profit_factor": 0.64,
+          "sharpe": -13.0,
+          "max_drawdown_pct": 105.16,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-04",
+          "trades": 6932,
+          "net_profit": -10903.49,
+          "profit_factor": 0.62,
+          "sharpe": -14.09,
+          "max_drawdown_pct": 109.07,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-05",
+          "trades": 6176,
+          "net_profit": -11039.75,
+          "profit_factor": 0.63,
+          "sharpe": -13.61,
+          "max_drawdown_pct": 110.52,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-06",
+          "trades": 3186,
+          "net_profit": -7160.59,
+          "profit_factor": 0.55,
+          "sharpe": -12.41,
+          "max_drawdown_pct": 71.77,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-07",
+          "trades": 11263,
+          "net_profit": -17681.07,
+          "profit_factor": 0.62,
+          "sharpe": -19.04,
+          "max_drawdown_pct": 176.97,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-08",
+          "trades": 3451,
+          "net_profit": -7443.43,
+          "profit_factor": 0.52,
+          "sharpe": -13.38,
+          "max_drawdown_pct": 74.48,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-09",
+          "trades": 10863,
+          "net_profit": -15143.9,
+          "profit_factor": 0.64,
+          "sharpe": -16.92,
+          "max_drawdown_pct": 151.44,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-10",
+          "trades": 2785,
+          "net_profit": -5845.12,
+          "profit_factor": 0.58,
+          "sharpe": -10.55,
+          "max_drawdown_pct": 58.47,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-11",
+          "trades": 10026,
+          "net_profit": -15566.42,
+          "profit_factor": 0.65,
+          "sharpe": -16.04,
+          "max_drawdown_pct": 155.69,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-12",
+          "trades": 4922,
+          "net_profit": -9195.63,
+          "profit_factor": 0.61,
+          "sharpe": -12.63,
+          "max_drawdown_pct": 92.33,
+          "score": -999.0
+        }
+      ]
+    },
+    {
+      "fold_id": 3,
+      "selected_config": "C-10",
+      "selected_score": -999.0,
+      "grid_evaluations": [
+        {
+          "config_id": "C-01",
+          "trades": 6109,
+          "net_profit": -10578.88,
+          "profit_factor": 0.64,
+          "sharpe": -12.81,
+          "max_drawdown_pct": 106.65,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-02",
+          "trades": 6094,
+          "net_profit": -10047.05,
+          "profit_factor": 0.65,
+          "sharpe": -12.7,
+          "max_drawdown_pct": 101.27,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-03",
+          "trades": 5936,
+          "net_profit": -9333.73,
+          "profit_factor": 0.68,
+          "sharpe": -10.79,
+          "max_drawdown_pct": 93.58,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-04",
+          "trades": 6502,
+          "net_profit": -10063.31,
+          "profit_factor": 0.65,
+          "sharpe": -12.14,
+          "max_drawdown_pct": 100.88,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-05",
+          "trades": 5786,
+          "net_profit": -10166.97,
+          "profit_factor": 0.65,
+          "sharpe": -12.23,
+          "max_drawdown_pct": 102.29,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-06",
+          "trades": 2927,
+          "net_profit": -5886.78,
+          "profit_factor": 0.62,
+          "sharpe": -9.64,
+          "max_drawdown_pct": 59.42,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-07",
+          "trades": 10922,
+          "net_profit": -16858.0,
+          "profit_factor": 0.64,
+          "sharpe": -17.04,
+          "max_drawdown_pct": 168.84,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-08",
+          "trades": 3207,
+          "net_profit": -5883.99,
+          "profit_factor": 0.61,
+          "sharpe": -9.77,
+          "max_drawdown_pct": 59.39,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-09",
+          "trades": 10414,
+          "net_profit": -15044.87,
+          "profit_factor": 0.65,
+          "sharpe": -15.82,
+          "max_drawdown_pct": 150.63,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-10",
+          "trades": 2582,
+          "net_profit": -5578.37,
+          "profit_factor": 0.59,
+          "sharpe": -9.92,
+          "max_drawdown_pct": 56.21,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-11",
+          "trades": 9759,
+          "net_profit": -14697.37,
+          "profit_factor": 0.68,
+          "sharpe": -14.29,
+          "max_drawdown_pct": 147.18,
+          "score": -999.0
+        },
+        {
+          "config_id": "C-12",
+          "trades": 4594,
+          "net_profit": -8511.11,
+          "profit_factor": 0.64,
+          "sharpe": -11.25,
+          "max_drawdown_pct": 85.46,
+          "score": -999.0
+        }
+      ]
+    }
+  ],
+  "pair_performance": {
+    "BTCUSDT": {
+      "trades": 261,
+      "net_pnl": -492.74,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "ETHUSDT": {
+      "trades": 253,
+      "net_pnl": -528.22,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "SOLUSDT": {
+      "trades": 309,
+      "net_pnl": -391.02,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "BNBUSDT": {
+      "trades": 382,
+      "net_pnl": -781.22,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "XRPUSDT": {
+      "trades": 237,
+      "net_pnl": -732.92,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "ADAUSDT": {
+      "trades": 300,
+      "net_pnl": -670.41,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "AVAXUSDT": {
+      "trades": 475,
+      "net_pnl": -649.28,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "LINKUSDT": {
+      "trades": 427,
+      "net_pnl": -1126.55,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "DOGEUSDT": {
+      "trades": 356,
+      "net_pnl": -980.38,
+      "status": "ELIGIBLE",
+      "passed": false
+    },
+    "LTCUSDT": {
+      "trades": 362,
+      "net_pnl": -594.25,
+      "status": "ELIGIBLE",
+      "passed": false
+    }
+  },
+  "qualification_gates": [
+    {
+      "gate_id": "GATE-1",
+      "gate_name": "Maximum Drawdown (MDD)",
+      "hurdle": "<= 15.0%",
+      "observed_value": 69.55,
+      "denominator": "Continuous Equity Curve",
+      "passed": false,
+      "details": "Exceeds 15.0% threshold (Observed: 69.55%)"
+    },
+    {
+      "gate_id": "GATE-2",
+      "gate_name": "Net Expectancy per Trade",
+      "hurdle": ">= +8.0 bps (+0.08%)",
+      "observed_value": "-21.03 bps (95% CI: [-24.81, -17.26] bps)",
+      "denominator": "Total Trades (3362)",
+      "passed": false,
+      "details": "Fails hurdle"
+    },
+    {
+      "gate_id": "GATE-3",
+      "gate_name": "Profit Factor (PF)",
+      "hurdle": ">= 1.25",
+      "observed_value": 0.612,
+      "denominator": "Net Realized PnL",
+      "passed": false,
+      "details": "Below 1.25 (Observed: 0.61)"
+    },
+    {
+      "gate_id": "GATE-4",
+      "gate_name": "Aggregate Trade Count",
+      "hurdle": ">= 150 trades",
+      "observed_value": 3362,
+      "denominator": "10 Qualified Pairs (OOS Folds 1-3)",
+      "passed": true,
+      "details": "Passes"
+    },
+    {
+      "gate_id": "GATE-5",
+      "gate_name": "Per-Pair Minimum Trade Count",
+      "hurdle": ">= 20 trades per qualified pair",
+      "observed_value": "10 of 10 pairs >= 20",
+      "denominator": "10 Qualified Pairs",
+      "passed": true,
+      "details": "All pairs satisfy minimum activity"
+    },
+    {
+      "gate_id": "GATE-6",
+      "gate_name": "Walk-Forward Consistency",
+      "hurdle": ">= 2 of 3 Folds Profitable",
+      "observed_value": "0 of 3 folds",
+      "denominator": "3 Rolling WF Folds",
+      "passed": false,
+      "details": "Only 0 of 3 folds profitable"
+    },
+    {
+      "gate_id": "GATE-7",
+      "gate_name": "Spatial Robustness",
+      "hurdle": ">= 7 of 10 Qualified Pairs Profitable",
+      "observed_value": "0 of 10 pairs",
+      "denominator": "10 Qualified Pairs (Frozen Denominator)",
+      "passed": false,
+      "details": "Only 0 of 10 qualified pairs profitable"
+    },
+    {
+      "gate_id": "GATE-8",
+      "gate_name": "Friction Stress Tolerance",
+      "hurdle": "Net PnL > 0 and PF > 1.0 at 21.0 bps friction",
+      "observed_value": "Net PnL: $-9144.30, PF: 0.53",
+      "denominator": "Stress Configuration (7.5 bps fee + 3.0 bps slip)",
+      "passed": false,
+      "details": "Fragile to elevated execution friction"
+    }
+  ],
+  "fallback_notice": "MANDATORY FALLBACK TRIGGERED: Strategy failed one or more frozen qualification gates. Designated as UNQUALIFIED_BASELINE for reference only. Thresholds remain non-negotiable."
+}

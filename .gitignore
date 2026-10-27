@@ -33,6 +33,10 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+data/derived/*
+!data/derived/.gitkeep
+data/backtests/*
+!data/backtests/.gitkeep
 artifacts/models/*
 !artifacts/models/.gitkeep
 artifacts/reports/*

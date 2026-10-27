@@ -296,7 +296,7 @@ class DeterministicBacktestEngine:
                 bar_index=len(raw_candles) - 1,
                 exit_fee=exit_fee,
                 exit_slippage=0.0,
-                exit_reason=ExitReason.MANUAL_CLOSE,
+                exit_reason=ExitReason.BOUNDARY_FLAT,
                 run_id=run_id,
                 trade_id=ledger.get_next_trade_id(),
                 equity_before=equity_before,
