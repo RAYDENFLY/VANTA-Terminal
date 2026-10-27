@@ -131,8 +131,9 @@ class MetaStrategyFilter(BaseStrategy):
         Executes streaming bar evaluation with causal meta-model gating.
         """
         # If position closed between bars, update exit time tracking
-        if not position.is_open() and position.entry_time_ms > 0:
-            pass
+        if getattr(self, "_was_open", False) and not position.is_open():
+            self.last_exit_time_ms = bar.timestamp_ms
+        self._was_open = position.is_open()
 
         # 1. Evaluate primary strategy
         primary_sig = self.primary_strategy.on_bar(bar, position)

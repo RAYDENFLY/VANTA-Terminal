@@ -1,0 +1,18 @@
+{
+  "data/experiments/phase_5d3/benchmark_0_oos_trades.json": "1126d4a8e740b5825104f1fe1a0400d0026e0bab50d4fa2fab1ae8cac8ff8219",
+  "data/experiments/phase_5d3/bootstrap_inference_results.json": "a863b230af437667c111dc3cd04b4c07896e93dffb75f54ac703b0221aa29db3",
+  "data/experiments/phase_5d3/META-1-LOGIT_H1_TAU_50_COOL_0_trades.json": "b6ae5b58579da3219b4fb5ae3f9f336a6774e0811af7eda714dea3f795f3a244",
+  "data/experiments/phase_5d3/META-1-LOGIT_H2_TAU_50_COOL_4_trades.json": "bcd8c2660c2772fa11e85e45e5d1a3d887fcc2cead35927e58a019f2667a57ad",
+  "data/experiments/phase_5d3/META-1-LOGIT_H3_TAU_55_COOL_0_trades.json": "d5fce8ff5adce4dbbd4efaf8af4c2cd8eb3f83518fde179fa05028c2d9bfc91c",
+  "data/experiments/phase_5d3/META-1-LOGIT_H4_TAU_55_COOL_4_trades.json": "95cdcfd538b8d30a1403ce3b38d839305a63817a4516029a28a019b3fb484422",
+  "data/experiments/phase_5d3/META-2-LGBM_H1_TAU_50_COOL_0_trades.json": "283abfe6e395d3c42bfc1d50988378bde86aee3ba23aaa5ce24b658436e9a756",
+  "data/experiments/phase_5d3/META-2-LGBM_H2_TAU_50_COOL_4_trades.json": "6a682a76f939aeefcfb5ade366b50025a6d0cd5f87bba355c8f4b96c9bdc670d",
+  "data/experiments/phase_5d3/META-2-LGBM_H3_TAU_55_COOL_0_trades.json": "86e2ac58052af97dc66c6d36fd1db176033b013026ab6c353f73d052891d7c26",
+  "data/experiments/phase_5d3/META-2-LGBM_H4_TAU_55_COOL_4_trades.json": "e714d2c6883713bcbe0fce2b279532c831bb3439c4c4322e8ceace5f02afbed6",
+  "data/experiments/phase_5d3/META-3-XGB_H1_TAU_50_COOL_0_trades.json": "90083be614176e38ec5ca1082359daabee725d981b413b3a1f64163b5b82ba78",
+  "data/experiments/phase_5d3/META-3-XGB_H2_TAU_50_COOL_4_trades.json": "addbaf6e61eeaf400f59d2d214a26ee5ca0d693be7a048944fa7baaa23581456",
+  "data/experiments/phase_5d3/META-3-XGB_H3_TAU_55_COOL_0_trades.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "data/experiments/phase_5d3/META-3-XGB_H4_TAU_55_COOL_4_trades.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "data/experiments/phase_5d3/meta_classification_metrics.json": "cc69e19451edddd79a7fb3de3430f59e4b848f5c9a197fb3b8a36fed0514d002",
+  "data/experiments/phase_5d3/phase_5d3_evaluation_summary.json": "f2455d445cd6414a22b258f24c24e2941c7d04d73b822b001a54d9f001723cdb"
+}
