@@ -1,0 +1,243 @@
+{
+  "protocol_id": "VANTA-PROTO-5A-ML-RESEARCH",
+  "version": "1.0.0-FROZEN",
+  "created_at_utc": "2026-10-27T14:45:00Z",
+  "author": "Antigravity Quant Agent",
+  "status": "PROTOCOL_READY_FOR_APPROVAL",
+  "certified_baseline_reference": {
+    "strategy_id": "STRAT-B-01",
+    "strategy_name": "Donchian Breakout / Trend",
+    "timeframe": "1H",
+    "designation": "UNQUALIFIED_BASELINE",
+    "benchmark_manifest_sha256": "168e39ce823126bace6d3db1873154ef9721e453d29dd27e773b7f3fb924bdd5",
+    "historical_metrics": {
+      "total_oos_trades": 2851,
+      "net_pnl": 243.43,
+      "net_return_pct": 2.43,
+      "profit_factor": 1.007,
+      "net_expectancy_bps": 3.31,
+      "mtm_max_drawdown_pct": 20.67,
+      "closed_trade_max_drawdown_pct": 21.42,
+      "profitable_folds": 2,
+      "profitable_pairs": 6,
+      "stress_net_pnl": -2222.2,
+      "stress_profit_factor": 0.934
+    }
+  },
+  "data_universe": {
+    "qualified_pairs": [
+      "BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
+      "ADAUSDT", "AVAXUSDT", "LINKUSDT", "DOGEUSDT", "LTCUSDT"
+    ],
+    "auxiliary_pair": "XMRUSDT",
+    "primary_timeframe": "1H",
+    "holdout_cutoff_ms": 1777161600000,
+    "holdout_cutoff_utc": "2026-04-26T00:00:00Z",
+    "quarantine_rule": "STRICT_FORBIDDEN_TIMESTAMP_GUARD",
+    "previously_seen_evaluation_disclosure": "Folds 1-3 OOS (2024-10-28 to 2026-04-26) are labeled PREVIOUSLY_SEEN_HISTORICAL_EVALUATION and do NOT constitute an untouched final test set."
+  },
+  "target_definitions": {
+    "candidate_targets": [
+      {
+        "target_id": "TARGET-A-DIR",
+        "type": "BINARY_CLASSIFICATION",
+        "formula": "I(Close_{t+H} > Close_t)",
+        "horizon_bars": 4,
+        "loss_function": "binary_logloss"
+      },
+      {
+        "target_id": "TARGET-B-RET",
+        "type": "REGRESSION",
+        "formula": "ln(Close_{t+H} / Close_t)",
+        "horizon_bars": 4,
+        "loss_function": "huber_loss"
+      },
+      {
+        "target_id": "TARGET-C-BARRIER",
+        "type": "TRIPLE_BARRIER_COST_AWARE",
+        "recommended": true,
+        "horizon_bars": 12,
+        "profit_hurdle": "1.5 * ATR_14 / Close + 0.0014",
+        "stop_hurdle": "1.0 * ATR_14 / Close",
+        "cost_hurdle_bps": 14.0,
+        "labels": {"PROFIT_TAKE": 1, "TIME_EXPIRY": 0, "STOP_LOSS": -1}
+      }
+    ],
+    "frozen_primary_target": "TARGET-C-BARRIER"
+  },
+  "feature_catalog": {
+    "total_features": 21,
+    "max_warmup_bars": 100,
+    "scaling_method": "RobustScaler (Fitted strictly on In-Sample slice)",
+    "feature_families": {
+      "FAM-1_MOMENTUM": ["RET_1", "RET_4", "RET_12", "RET_24"],
+      "FAM-2_VOLATILITY": ["NATR_14", "VOLAT_24", "GK_VOL_12"],
+      "FAM-3_TREND_DISTANCE": ["DIST_EMA_20", "DIST_EMA_50", "SPREAD_EMA_20_50"],
+      "FAM-4_VOLUME_BASELINE": ["RVOL_12", "RVOL_24", "VOL_MOM_4"],
+      "FAM-5_MICROSTRUCTURE": ["BODY_RATIO", "UPPER_SHADOW", "LOWER_SHADOW"],
+      "FAM-6_BREAKOUT_RANGE": ["DONCH_POS_24", "DIST_HIGH_24", "DIST_LOW_24"],
+      "FAM-7_CROSS_SECTIONAL": ["XS_REL_RET_4", "XS_BETA_24"]
+    }
+  },
+  "model_arena": {
+    "permitted_models": [
+      {
+        "model_id": "BENCHMARK-0",
+        "class": "RULE_BASED",
+        "name": "STRAT-B-01 Donchian 1H",
+        "parameters": "Frozen Phase 4B/4B.5 parameters"
+      },
+      {
+        "model_id": "MODEL-1-LOGIT",
+        "class": "LINEAR",
+        "algorithm": "LogisticRegression (L2)",
+        "hyperparameters": {
+          "penalty": "l2",
+          "C": 0.1,
+          "solver": "lbfgs",
+          "max_iter": 1000,
+          "random_state": 42
+        }
+      },
+      {
+        "model_id": "MODEL-2-LGBM",
+        "class": "GRADIENT_BOOSTED_TREES",
+        "algorithm": "LGBMClassifier",
+        "hyperparameters": {
+          "max_depth": 4,
+          "num_leaves": 15,
+          "min_child_samples": 50,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "reg_alpha": 0.1,
+          "reg_lambda": 1.0,
+          "learning_rate": 0.03,
+          "n_estimators": 300,
+          "random_state": 42,
+          "n_jobs": 4
+        }
+      },
+      {
+        "model_id": "MODEL-3-XGB",
+        "class": "GRADIENT_BOOSTED_TREES",
+        "algorithm": "XGBClassifier",
+        "hyperparameters": {
+          "max_depth": 4,
+          "min_child_weight": 50,
+          "subsample": 0.8,
+          "colsample_bytree": 0.8,
+          "reg_alpha": 0.1,
+          "reg_lambda": 1.0,
+          "learning_rate": 0.03,
+          "random_state": 42,
+          "n_jobs": 4
+        }
+      }
+    ],
+    "random_seed": 42,
+    "class_weighting": "balanced",
+    "hardware_limits": {
+      "max_threads": 4,
+      "max_ram_gb": 4.0,
+      "gpu_acceleration": "DISABLED"
+    }
+  },
+  "walk_forward_schedule": [
+    {
+      "fold_id": 1,
+      "is_start_utc": "2023-10-26T00:00:00Z",
+      "purge_cutoff_utc": "2024-10-24T00:00:00Z",
+      "embargo_start_utc": "2024-10-26T00:00:00Z",
+      "embargo_end_utc": "2024-10-28T00:00:00Z",
+      "oos_end_utc": "2025-04-26T00:00:00Z"
+    },
+    {
+      "fold_id": 2,
+      "is_start_utc": "2024-04-26T00:00:00Z",
+      "purge_cutoff_utc": "2025-04-24T00:00:00Z",
+      "embargo_start_utc": "2025-04-26T00:00:00Z",
+      "embargo_end_utc": "2025-04-28T00:00:00Z",
+      "oos_end_utc": "2025-10-26T00:00:00Z"
+    },
+    {
+      "fold_id": 3,
+      "is_start_utc": "2024-10-26T00:00:00Z",
+      "purge_cutoff_utc": "2025-10-24T00:00:00Z",
+      "embargo_start_utc": "2025-10-26T00:00:00Z",
+      "embargo_end_utc": "2025-10-28T00:00:00Z",
+      "oos_end_utc": "2026-04-26T00:00:00Z"
+    }
+  ],
+  "statistical_inference": {
+    "bootstrap_method": "Stationary Block Bootstrap (Politis & Romano, 1994)",
+    "sampling_unit": "1-Day (24-hour) Synchronous Multi-Pair Vector",
+    "expected_block_length_days": 5,
+    "num_replicates": 2000,
+    "random_seed": 42,
+    "confidence_level": 0.95,
+    "role": "Descriptive uncertainty quantification; deterministic point gates remain binding."
+  },
+  "qualification_gates": [
+    {
+      "gate_id": "GATE-1",
+      "gate_name": "Maximum Drawdown (MDD)",
+      "hurdle": "<= 15.0%",
+      "interpretation": "DUAL_CRITERIA (Per-fold MTM MDD <= 15.0% in every fold AND Combined Chained MTM MDD <= 15.0%)"
+    },
+    {
+      "gate_id": "GATE-2",
+      "gate_name": "Net Expectancy per Trade",
+      "hurdle": ">= +8.0 bps"
+    },
+    {
+      "gate_id": "GATE-3",
+      "gate_name": "Profit Factor (PF)",
+      "hurdle": ">= 1.25"
+    },
+    {
+      "gate_id": "GATE-4",
+      "gate_name": "Aggregate Trade Count",
+      "hurdle": ">= 150 trades"
+    },
+    {
+      "gate_id": "GATE-5",
+      "gate_name": "Per-Pair Minimum Activity",
+      "hurdle": ">= 20 trades per qualified pair"
+    },
+    {
+      "gate_id": "GATE-6",
+      "gate_name": "Walk-Forward Consistency",
+      "hurdle": ">= 2 of 3 Folds Net Positive"
+    },
+    {
+      "gate_id": "GATE-7",
+      "gate_name": "Spatial Robustness",
+      "hurdle": ">= 7 of 10 Qualified Pairs Net Positive"
+    },
+    {
+      "gate_id": "GATE-8",
+      "gate_name": "Friction Stress Tolerance",
+      "hurdle": "Net PnL > $0 and PF > 1.0 at 21.0 bps friction"
+    }
+  ],
+  "unresolved_decisions_and_research_notes": [
+    {
+      "decision_id": "DEC-01",
+      "topic": "Target Horizon vs Holding Limit",
+      "status": "FROZEN_AT_12H",
+      "detail": "Target horizon set to 12 hours with maximum trade holding period of 36 hours to strictly fit within the frozen 48-hour purge window."
+    },
+    {
+      "decision_id": "DEC-02",
+      "topic": "Model Complexity Guard",
+      "status": "ENFORCED",
+      "detail": "Deep learning (LSTM, Transformer) and broad hyperparameter AutoML searches are strictly prohibited. Models restricted to regularized Logit, LightGBM, and XGBoost."
+    },
+    {
+      "decision_id": "DEC-03",
+      "topic": "Feature Warmup Buffer",
+      "status": "RESOLVED",
+      "detail": "Datasets must be loaded with at least 100 historical bars prior to IS start to ensure features (e.g. 50-period EMA, 24-period ranges) are fully warmed up on bar 0 of training."
+    }
+  ]
+}
